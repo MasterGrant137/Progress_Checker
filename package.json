@@ -1,0 +1,23 @@
+{
+  "name": "progresschecker",
+  "version": "1.0.0",
+  "description": "an app to help individuals track their progress",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasterGrant137/progressChecker.git"
+  },
+  "keywords": [
+    "progress",
+    "checker"
+  ],
+  "author": "Alejandro C. Grant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MasterGrant137/progressChecker/issues"
+  },
+  "homepage": "https://github.com/MasterGrant137/progressChecker#readme"
+}
