@@ -26,7 +26,6 @@ nav {
 
 main {
     grid-area: main;
-    overflow-y: scroll;
 }
 
 footer {
