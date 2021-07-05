@@ -53,7 +53,7 @@ button:hover {
     background-color: rgb(253, 70, 70);
 }
 
-.row {
+.rowL {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
