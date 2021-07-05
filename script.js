@@ -1,7 +1,9 @@
 let rowCount = 0;
+let checkboxCount = 0;
 
 const newRow = () => {
     let main = document.querySelector("main");
+    let leftSideBar = document.querySelector("#left-sidebar");
     let newRowButton = document.querySelector("#new-row");
 
     newRowButton.addEventListener("click", event => {
@@ -31,7 +33,6 @@ const newRow = () => {
         plus.setAttribute("class", "plus");
         plus.innerText = "+";
         row.appendChild(plus);
-        let checkboxCount = 0;
 
         plus.addEventListener("click", event => {
             let checkboxContainer = document.createElement("span");
@@ -39,15 +40,37 @@ const newRow = () => {
 
             checkboxContainer.setAttribute("id", `checkbox-${checkboxCount}`);
             checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("class", "checkbox")
 
             row.appendChild(checkboxContainer);
             checkboxContainer.appendChild(checkbox);
 
+            counters(rowCount);
             checkboxCount++;
         });
 
         rowCount++;
     })
+}
+
+
+const counters = (rowCount) => {
+    // console.log(runningRowCount);
+    // let sidebar = document.querySelector("#sidebar");
+    // let currentRowCount = document.querySelector(`#row-${runningRowCount}`);
+    // console.log(runningRowCount)
+    // let countArea = document.createElement("div");
+    // countArea.setAttribute("id", `count-area-${runningRowCount}`);
+    // countArea.setAttribute("class", "count-area");
+
+
+    //! let testCount = document.querySelector(`#row-0`).children.length;
+    // console.log(rowCount - 1)
+    testCount = document.querySelector(`#row-${rowCount - 1}`).children.length;
+    console.log(testCount);
+    // let rowCheckboxCount = currentRow.children.length;
+    // countArea.innerText = rowCheckboxCount;
+    // sidebar.appendChild(countArea);
 }
 
 window.addEventListener("DOMContentLoaded", () => {
