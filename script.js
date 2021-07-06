@@ -17,7 +17,7 @@ const newRow = () => {
         rowM.setAttribute("class", "row");
         main.appendChild(rowM);
 
-        let removeRow = document.createElement("p");
+        let removeRow = document.createElement("span");
         removeRow.setAttribute("class", "remove-row");
         removeRow.innerText = "✂️";
         rowL.appendChild(removeRow);
@@ -39,6 +39,8 @@ const newRow = () => {
         plus.innerText = "+";
         rowL.appendChild(plus);
 
+        initializeCount(rowCount);
+
         plus.addEventListener("click", event => {
             let checkboxContainer = document.createElement("span");
             let checkbox = document.createElement("input");
@@ -50,7 +52,7 @@ const newRow = () => {
             rowM.appendChild(checkboxContainer);
             checkboxContainer.appendChild(checkbox);
 
-            counters(rowCount);
+            incrementCount(rowCount);
             checkboxCount++;
         });
 
@@ -58,29 +60,55 @@ const newRow = () => {
     })
 }
 
-
-const counters = (rowCount) => {
-    let countAreaExists = document.querySelector(`#count-area-${rowCount}`);
+//*test feature
+const initializeCount = (rowCount) => {
     let rightSidebar = document.querySelector("#right-sidebar");
-    
-    if (!countAreaExists) {
+
         let newCountArea = document.createElement("div");
         newCountArea.setAttribute("id", `count-area-${rowCount}`);
         newCountArea.setAttribute("class", "count-area");
 
-        countAreaExists = newCountArea;
-    }
+    console.log(rowCount);
+    console.log(newCountArea);
+    let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
 
+    newCountArea.innerText = rowLength;
 
+    rightSidebar.appendChild(newCountArea);
+}
+
+const incrementCount = (rowCount) => {
+    let countArea = document.querySelector(`#count-area-${rowCount - 1}`);
+    let rightSidebar = document.querySelector("#right-sidebar");
 
     let rowLength = document.querySelector(`#rowM-${rowCount - 1}`).children.length;
-    console.log(countAreaExists);
+    console.log(countArea);
 
-    // countAreaExists.innerText = "";
-    countAreaExists.innerText = rowLength;
+    countArea.innerText = "";
+    countArea.innerText = rowLength;
 
-    rightSidebar.appendChild(countAreaExists);
+    rightSidebar.appendChild(countArea);
 }
+
+// const incrementCount = (rowCount) => {
+//     let countAreaExists = document.querySelector(`#count-area-${rowCount}`);
+//     let rightSidebar = document.querySelector("#right-sidebar");
+
+//     if (!countAreaExists) {
+//         let newCountArea = document.createElement("div");
+//         newCountArea.setAttribute("id", `count-area-${rowCount}`);
+//         newCountArea.setAttribute("class", "count-area");
+//         countAreaExists = newCountArea;
+//     }
+
+//     let rowLength = document.querySelector(`#rowM-${rowCount - 1}`).children.length;
+//     console.log(countAreaExists);
+
+//     // countAreaExists.innerText = "";
+//     countAreaExists.innerText = rowLength;
+
+//     rightSidebar.appendChild(countAreaExists);
+// }
 
 window.addEventListener("DOMContentLoaded", () => {
     newRow();
