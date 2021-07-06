@@ -2,8 +2,9 @@ let rowCount = 0;
 let checkboxCount = 0;
 
 const newRow = () => {
-    let main = document.querySelector("main");
     let leftSideBar = document.querySelector("#left-sidebar");
+    let main = document.querySelector("main");
+    let rightSidebar = document.querySelector("#right-sidebar");
     let newRowButton = document.querySelector("#new-row");
 
     newRowButton.addEventListener("click", event => {
@@ -16,6 +17,13 @@ const newRow = () => {
         rowM.setAttribute("id", `rowM-${rowCount}`);
         rowM.setAttribute("class", "row");
         main.appendChild(rowM);
+        let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
+
+        let rowR = document.createElement("div");
+        rowR.setAttribute("id", `rowR-${rowCount}`);
+        rowR.setAttribute("class", "row");
+        rowR.innerText = rowLength;
+        rightSidebar.appendChild(rowR);
 
         let removeRow = document.createElement("span");
         removeRow.setAttribute("class", "remove-row");
@@ -39,76 +47,17 @@ const newRow = () => {
         plus.innerText = "+";
         rowL.appendChild(plus);
 
-        initializeCount(rowCount);
-
         plus.addEventListener("click", event => {
-            let checkboxContainer = document.createElement("span");
             let checkbox = document.createElement("input");
-
-            checkboxContainer.setAttribute("id", `checkbox-${checkboxCount}`);
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("class", "checkbox")
-
-            rowM.appendChild(checkboxContainer);
-            checkboxContainer.appendChild(checkbox);
-
-            incrementCount(rowCount);
-            checkboxCount++;
+            rowLength++;
+            rowR.innerText = rowLength;
+            rowM.appendChild(checkbox);
         });
 
         rowCount++;
     })
 }
-
-//*test feature
-const initializeCount = (rowCount) => {
-    let rightSidebar = document.querySelector("#right-sidebar");
-
-        let newCountArea = document.createElement("div");
-        newCountArea.setAttribute("id", `count-area-${rowCount}`);
-        newCountArea.setAttribute("class", "count-area");
-
-    console.log(rowCount);
-    console.log(newCountArea);
-    let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
-
-    newCountArea.innerText = rowLength;
-
-    rightSidebar.appendChild(newCountArea);
-}
-
-const incrementCount = (rowCount) => {
-    let countArea = document.querySelector(`#count-area-${rowCount - 1}`);
-    let rightSidebar = document.querySelector("#right-sidebar");
-
-    let rowLength = document.querySelector(`#rowM-${rowCount - 1}`).children.length;
-    console.log(countArea);
-
-    countArea.innerText = "";
-    countArea.innerText = rowLength;
-
-    rightSidebar.appendChild(countArea);
-}
-
-// const incrementCount = (rowCount) => {
-//     let countAreaExists = document.querySelector(`#count-area-${rowCount}`);
-//     let rightSidebar = document.querySelector("#right-sidebar");
-
-//     if (!countAreaExists) {
-//         let newCountArea = document.createElement("div");
-//         newCountArea.setAttribute("id", `count-area-${rowCount}`);
-//         newCountArea.setAttribute("class", "count-area");
-//         countAreaExists = newCountArea;
-//     }
-
-//     let rowLength = document.querySelector(`#rowM-${rowCount - 1}`).children.length;
-//     console.log(countAreaExists);
-
-//     // countAreaExists.innerText = "";
-//     countAreaExists.innerText = rowLength;
-
-//     rightSidebar.appendChild(countAreaExists);
-// }
 
 window.addEventListener("DOMContentLoaded", () => {
     newRow();

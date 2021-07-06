@@ -14,10 +14,6 @@ body {
     "foot foot foot";
 }
 
-main {
-    padding: 10px;
-}
-
 nav {
     grid-area: nav;
     display: flex;
@@ -26,6 +22,7 @@ nav {
 
 main {
     grid-area: main;
+    margin: 0px
 }
 
 footer {
