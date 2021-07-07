@@ -1,6 +1,9 @@
 let rowCount = 0;
 let checkboxCount = 0;
 let eleObject = {};
+let lastDateEntry;
+let dateEntryLength = 0;
+let dateEntryCount2 = 0;
 
 const renderPage = () => {
     // let leftSideBarKids = document.querySelector("#left-sidebar").children;
@@ -33,27 +36,40 @@ const newRow = () => {
         date.setAttribute("id", `date-${rowCount}`);
         date.setAttribute("class", "date");
         rowL.appendChild(date);
-        let lastDateEntry;
 
         //* newest feature, trying to get local storage to remove last item of the same type once new entry is added
         const storeDate = () => {
-            console.log(lastDateEntry)
             let currDateEntry = date.id;
             let dateVal = date.value;
 
 
             eleObject[currDateEntry] = dateVal;
             localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
-            console.log(lastDateEntry)
-            if (lastDateEntry) {
-                // localStorage.removeItem([`${lastDateEntry}`]);
-                // console.log(localStorage[`${lastDateEntry}`])
-                console.log("caught");
+
+            console.log(dateEntryLength);
+
+            if (!dateEntryLength) {
+                lastDateEntry = currDateEntry;
             }
 
+            dateEntryLength++;
 
-            lastDateEntry = currDateEntry;
-            console.log(lastDateEntry)
+            console.log(dateEntryLength);
+
+            if (dateEntryLength === 2) {
+                localStorage.removeItem(lastDateEntry);
+                console.log(`caught ${lastDateEntry}`);
+                console.log(`caught ${currDateEntry}`);
+                dateEntryLength = 0;
+            }
+
+            if (dateEntryLength === 1) {
+                 localStorage.removeItem(lastDateEntry);
+                
+                 dateEntryLength = 0;
+                }
+            }
+            // dateEntryLength = 1;
         }
 
         date.addEventListener("change", storeDate);
