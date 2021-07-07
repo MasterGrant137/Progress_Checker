@@ -33,20 +33,30 @@ const newRow = () => {
         date.setAttribute("id", `date-${rowCount}`);
         date.setAttribute("class", "date");
         rowL.appendChild(date);
+        let lastDateEntry;
 
+        //* newest feature, trying to get local storage to remove last item of the same type once new entry is added
         const storeDate = () => {
-           let currInput = date.id;
-           let dateVal = date.value;
+            console.log(lastDateEntry)
+            let currDateEntry = date.id;
+            let dateVal = date.value;
 
-           eleObject["currDateObject"] = dateVal;
-           localStorage.setItem(currInput, JSON.stringify(eleObject));
-           localStorage.removeItem()
 
+            eleObject[currDateEntry] = dateVal;
+            localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+            console.log(lastDateEntry)
+            if (lastDateEntry) {
+                // localStorage.removeItem([`${lastDateEntry}`]);
+                // console.log(localStorage[`${lastDateEntry}`])
+                console.log("caught");
+            }
+
+
+            lastDateEntry = currDateEntry;
+            console.log(lastDateEntry)
         }
 
         date.addEventListener("change", storeDate);
-        // date.addEventListener("keyup", storeDate);
-        // date.addEventListener("click", storeDate);
 
         let minus = document.createElement("button");
         minus.setAttribute("id", `minus-${rowCount}`);
