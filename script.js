@@ -2,8 +2,8 @@ let rowCount = 0;
 let checkboxCount = 0;
 let eleObject = {};
 let lastDateEntry;
-let dateEntryLength = 0;
-let dateEntryCount2 = 0;
+// let dateEntryLength = 0;
+let dateStack = [];
 
 const renderPage = () => {
     // let leftSideBarKids = document.querySelector("#left-sidebar").children;
@@ -42,35 +42,61 @@ const newRow = () => {
             let currDateEntry = date.id;
             let dateVal = date.value;
 
+            dateStack.push(currDateEntry);
 
             eleObject[currDateEntry] = dateVal;
             localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
 
-            console.log(dateEntryLength);
-
-            if (!dateEntryLength) {
-                lastDateEntry = currDateEntry;
-            }
-
-            dateEntryLength++;
-
-            console.log(dateEntryLength);
-
-            if (dateEntryLength === 2) {
+            if (dateStack.length === 2) {
+                let lastDateEntry = dateStack.shift();
                 localStorage.removeItem(lastDateEntry);
-                console.log(`caught ${lastDateEntry}`);
-                console.log(`caught ${currDateEntry}`);
-                dateEntryLength = 0;
             }
-
-            if (dateEntryLength === 1) {
-                 localStorage.removeItem(lastDateEntry);
-                
-                 dateEntryLength = 0;
-                }
-            }
-            // dateEntryLength = 1;
+            console.log(dateStack)
         }
+        // const storeDate = () => {
+        //     let currDateEntry = date.id;
+        //     let dateVal = date.value;
+
+        //     eleObject[currDateEntry] = dateVal;
+        //     localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+
+        //     if (!dateEntryLength) {
+        //         lastDateEntry = currDateEntry;
+        //     }
+
+        //     dateEntryLength++;
+
+        //     if (localStorage[lastDateEntry].length < localStorage[currDateEntry].length) {
+        //         localStorage.removeItem(lastDateEntry);
+
+        //     }
+        // }
+
+        // const storeDate = () => {
+        //     let currDateEntry = date.id;
+        //     let dateVal = date.value;
+
+
+        //     eleObject[currDateEntry] = dateVal;
+        //     localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+
+        //     if (!dateEntryLength) {
+        //         lastDateEntry = currDateEntry;
+        //     }
+
+        //     dateEntryLength++;
+
+        //     console.log(lastDateEntry)
+
+        //     if (dateEntryLength === 2) {
+        //         localStorage.removeItem(lastDateEntry);
+        //         console.log(`caught ${lastDateEntry}`);
+        //         console.log(`caught ${currDateEntry}`);
+        //         dateEntryLength = 0;
+        //         dateEntryCount2++;
+        //     }
+
+        // }
 
         date.addEventListener("change", storeDate);
 
