@@ -1,26 +1,22 @@
 let rowCount = 0;
 let checkboxCount = 0;
 let eleObject = {};
-let lastDateEntry;
-let dateStack = [];
+let dateQueue = [];
 
 const renderPage = () => {
     let leftSideBar = document.querySelector("#left-sidebar");
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
-    let newRowButton = document.querySelector("#new-row");
-
 
     if (localStorage["currDateEntry"]) {
+        let allLocalStorageKeys = Object.keys(localStorage);
         let retrievedDateEntry = localStorage["currDateEntry"].split(",");
         let dateKey = retrievedDateEntry[0];
         let objectLength = retrievedDateEntry[1];
         let retrievedDateObject = JSON.parse(localStorage[dateKey]);
-
-        console.log(retrievedDateObject)
+        eleObject = retrievedDateObject;
 
         for (let i = 0; i < objectLength; i++) {
-            // newRowButton.addEventListener("click", () => {
                 let rowL = document.createElement("div");
                 rowL.setAttribute("id", `rowL-${rowCount}`);
                 rowL.setAttribute("class", "row");
@@ -42,13 +38,11 @@ const renderPage = () => {
                     let currDateEntry = date.id;
                     let dateVal = date.value;
 
-                    dateStack.push(currDateEntry);
+                    dateQueue.push(currDateEntry);
                     eleObject[currDateEntry] = dateVal;
-                    localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
-                    localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
 
-                    if (dateStack.length === 2) {
-                        let lastDateEntry = dateStack.shift();
+                    if (dateQueue.length === 2) {
+                        let lastDateEntry = dateQueue.shift();
                         localStorage.removeItem(lastDateEntry);
                     }
                 }
@@ -88,13 +82,13 @@ const renderPage = () => {
                 rightSidebar.appendChild(rowR);
 
                 rowCount++;
-
-            // })
         }
+       return allLocalStorageKeys.forEach(val=> {
+            if (val.includes("date-") && val !== dateKey) {
+                localStorage.removeItem(val)
+            }
+         })
     }
-
-    console.log("all online")
-
 }
 
 const newRow = () => {
@@ -124,13 +118,13 @@ const newRow = () => {
             let currDateEntry = date.id;
             let dateVal = date.value;
 
-            dateStack.push(currDateEntry);
+            dateQueue.push(currDateEntry);
             eleObject[currDateEntry] = dateVal;
             localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
             localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
 
-            if (dateStack.length === 2) {
-                let lastDateEntry = dateStack.shift();
+            if (dateQueue.length === 2) {
+                let lastDateEntry = dateQueue.shift();
                 localStorage.removeItem(lastDateEntry);
             }
         }
