@@ -162,13 +162,7 @@ const newRow = () => {
         rightSidebar.appendChild(rowR);
 
         rowCount++;
-
     })
-    // return allLocalStorageKeys.forEach(val=> {
-    //     if (val.includes("date-") && val !== dateKey) {
-    //         localStorage.removeItem(val)
-    //     }
-    //  })
 }
 
 window.addEventListener("DOMContentLoaded", () => {

@@ -50,10 +50,12 @@ button:hover {
     background-color: rgb(253, 70, 70);
 }
 
-.rowL {
+.row {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     flex-wrap: wrap;
+    height: 50px;
 }
 
 #left-sidebar {
