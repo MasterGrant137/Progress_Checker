@@ -19,7 +19,7 @@ const renderPage = () => {
         for (let i = 0; i < objectLength; i++) {
                 let rowL = document.createElement("div");
                 rowL.setAttribute("id", `rowL-${rowCount}`);
-                rowL.setAttribute("class", "row");
+                rowL.setAttribute("class", "row rowL");
                 leftSideBar.appendChild(rowL);
 
                 let removeRow = document.createElement("span");
@@ -71,13 +71,13 @@ const renderPage = () => {
 
                 let rowM = document.createElement("div");
                 rowM.setAttribute("id", `rowM-${rowCount}`);
-                rowM.setAttribute("class", "row");
+                rowM.setAttribute("class", "row rowM");
                 main.appendChild(rowM);
                 let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
 
                 let rowR = document.createElement("div");
                 rowR.setAttribute("id", `rowR-${rowCount}`);
-                rowR.setAttribute("class", "row");
+                rowR.setAttribute("class", "row rowR");
                 rowR.innerText = rowLength;
                 rightSidebar.appendChild(rowR);
 
@@ -100,7 +100,7 @@ const newRow = () => {
     newRowButton.addEventListener("click", () => {
         let rowL = document.createElement("div");
         rowL.setAttribute("id", `rowL-${rowCount}`);
-        rowL.setAttribute("class", "row");
+        rowL.setAttribute("class", "row rowL");
         leftSideBar.appendChild(rowL);
 
         let removeRow = document.createElement("span");
@@ -151,13 +151,13 @@ const newRow = () => {
 
         let rowM = document.createElement("div");
         rowM.setAttribute("id", `rowM-${rowCount}`);
-        rowM.setAttribute("class", "row");
+        rowM.setAttribute("class", "row rowM");
         main.appendChild(rowM);
         let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
 
         let rowR = document.createElement("div");
         rowR.setAttribute("id", `rowR-${rowCount}`);
-        rowR.setAttribute("class", "row");
+        rowR.setAttribute("class", "row rowR");
         rowR.innerText = rowLength;
         rightSidebar.appendChild(rowR);
 
