@@ -34,20 +34,20 @@ const renderPage = () => {
                 rowL.appendChild(date);
                 date.value = retrievedDateObject[`date-${rowCount}`];
 
-                const storeDate = () => {
+                date.addEventListener("input", () => {
                     let currDateEntry = date.id;
                     let dateVal = date.value;
 
                     dateQueue.push(currDateEntry);
                     eleObject[currDateEntry] = dateVal;
+                    localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+                    localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
 
-                    if (dateQueue.length === 2) {
+                    if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                         let lastDateEntry = dateQueue.shift();
                         localStorage.removeItem(lastDateEntry);
                     }
-                }
-
-                date.addEventListener("change", storeDate);
+                })
 
                 let minus = document.createElement("button");
                 minus.setAttribute("id", `minus-${rowCount}`);
@@ -114,7 +114,7 @@ const newRow = () => {
         date.setAttribute("class", "date");
         rowL.appendChild(date);
 
-        const storeDate = () => {
+        date.addEventListener("input", () => {
             let currDateEntry = date.id;
             let dateVal = date.value;
 
@@ -123,13 +123,11 @@ const newRow = () => {
             localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
             localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
 
-            if (dateQueue.length === 2) {
+            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                 let lastDateEntry = dateQueue.shift();
                 localStorage.removeItem(lastDateEntry);
             }
-        }
-
-        date.addEventListener("change", storeDate);
+        })
 
         let minus = document.createElement("button");
         minus.setAttribute("id", `minus-${rowCount}`);
@@ -166,6 +164,11 @@ const newRow = () => {
         rowCount++;
 
     })
+    // return allLocalStorageKeys.forEach(val=> {
+    //     if (val.includes("date-") && val !== dateKey) {
+    //         localStorage.removeItem(val)
+    //     }
+    //  })
 }
 
 window.addEventListener("DOMContentLoaded", () => {
