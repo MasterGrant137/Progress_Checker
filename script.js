@@ -1,5 +1,4 @@
 let rowCount = 0;
-let checkboxCount = 0;
 let eleObject = {};
 let dateQueue = [];
 
@@ -47,7 +46,7 @@ const renderPage = () => {
                         let lastDateEntry = dateQueue.shift();
                         localStorage.removeItem(lastDateEntry);
                     }
-                })
+                });
 
                 let minus = document.createElement("button");
                 minus.setAttribute("id", `minus-${rowCount}`);
@@ -87,7 +86,7 @@ const renderPage = () => {
             if (val.includes("date-") && val !== dateKey) {
                 localStorage.removeItem(val)
             }
-         })
+         });
     }
 }
 
@@ -127,7 +126,7 @@ const newRow = () => {
                 let lastDateEntry = dateQueue.shift();
                 localStorage.removeItem(lastDateEntry);
             }
-        })
+        });
 
         let minus = document.createElement("button");
         minus.setAttribute("id", `minus-${rowCount}`);
@@ -141,28 +140,46 @@ const newRow = () => {
         plus.innerText = "+";
         rowL.appendChild(plus);
 
-        plus.addEventListener("click", () => {
-            let checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            rowLength++;
-            rowR.innerText = rowLength;
-            rowM.appendChild(checkbox);
-        });
-
         let rowM = document.createElement("div");
         rowM.setAttribute("id", `rowM-${rowCount}`);
         rowM.setAttribute("class", "row rowM");
         main.appendChild(rowM);
-        let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
+
+        let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
+        let uncheckedBoxes = 0;
+
+        plus.addEventListener("click", () => {
+            let checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            rowR.innerText = uncheckedBoxes;
+            rowM.appendChild(checkbox);
+
+            checkbox.addEventListener("input", () => {
+                let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                    return !checkbox.checked;
+                 });
+                 uncheckedBoxes = uncheckedBoxesArray.length;
+            });
+
+            let mainColumnArray = Array.from(rowMDiv.children);
+            let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                return !checkbox.checked;
+             });
+             uncheckedBoxes = uncheckedBoxesArray.length;
+
+            console.log(mainColumnArray)
+            console.log(uncheckedBoxes)
+            rowR.innerText = uncheckedBoxes;
+        });
 
         let rowR = document.createElement("div");
         rowR.setAttribute("id", `rowR-${rowCount}`);
         rowR.setAttribute("class", "row rowR");
-        rowR.innerText = rowLength;
+        // rowR.innerText = uncheckedBoxes;
         rightSidebar.appendChild(rowR);
 
         rowCount++;
-    })
+    });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
