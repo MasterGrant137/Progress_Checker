@@ -198,12 +198,23 @@ const renderPage = () => {
                         let checkboxArray = mainColumnArray.map(checkbox => {
                             return checkbox.checked;
                         });
-                        checkboxArrays.push(checkboxArray);
+                        checkboxArrays[rowCount] = checkboxArray;
                         localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
                     });
 
                     let mainColumnArray = Array.from(rowMDiv.children);
                     localStorage.setItem("checkboxCount", mainColumnArray.length);
+
+                    let checkboxArray = mainColumnArray.map(checkbox => {
+                        return checkbox.checked;
+                    });
+                    if (!checkboxArrays[rowCount]) {
+                        checkboxArrays.push(checkboxArray);
+                        localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
+                    } else if (checkboxArrays[rowCount]) {
+                        checkboxArrays[rowCount] = checkboxArray;
+                        localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
+                    }
 
                     let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
                         return !checkbox.checked;
