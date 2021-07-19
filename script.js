@@ -7,113 +7,125 @@ const renderPage = () => {
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
 
-    if (localStorage["currDateEntry"]) {
+    if (localStorage["rowCount"]) {
         let allLocalStorageKeys = Object.keys(localStorage);
-        let retrievedDateEntry = localStorage["currDateEntry"].split(",");
-        let dateKey = retrievedDateEntry[0];
-        let objectLength = retrievedDateEntry[1];
-        let retrievedDateObject = JSON.parse(localStorage[dateKey]);
-        eleObject = retrievedDateObject;
+        let retrievedRowCount = Number(localStorage["rowCount"]);
 
-        for (let i = 0; i < objectLength; i++) {
-                let rowL = document.createElement("div");
-                rowL.setAttribute("id", `rowL-${rowCount}`);
-                rowL.setAttribute("class", "row rowL");
-                leftSideBar.appendChild(rowL);
+        for (let i = 0; i < retrievedRowCount; i++) {
+            let rowL = document.createElement("div");
+            rowL.setAttribute("id", `rowL-${rowCount}`);
+            rowL.setAttribute("class", "row rowL");
+            leftSideBar.appendChild(rowL);
 
-                let removeRow = document.createElement("span");
-                removeRow.setAttribute("class", "remove-row");
-                removeRow.innerText = "✂️";
-                rowL.appendChild(removeRow);
 
-                let date = document.createElement("input");
-                date.setAttribute("type", "date");
-                date.setAttribute("id", `date-${rowCount}`);
-                date.setAttribute("class", "date");
-                rowL.appendChild(date);
-                date.value = retrievedDateObject[`date-${rowCount}`];
 
-                date.addEventListener("input", () => {
-                    let currDateEntry = date.id;
-                    let dateVal = date.value;
+            let removeRow = document.createElement("span");
+            removeRow.setAttribute("class", "remove-row");
+            removeRow.innerText = "✂️";
+            rowL.appendChild(removeRow);
 
-                    dateQueue.push(currDateEntry);
-                    eleObject[currDateEntry] = dateVal;
-                    localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
-                    localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
+            let date = document.createElement("input");
+            date.setAttribute("type", "date");
+            date.setAttribute("id", `date-${rowCount}`);
+            date.setAttribute("class", "date");
+            rowL.appendChild(date);
 
-                    if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                        let lastDateEntry = dateQueue.shift();
-                        localStorage.removeItem(lastDateEntry);
-                    }
-                });
+            if (localStorage["currDateEntry"]) {
+                let retrievedDateEntry = localStorage["currDateEntry"].split(",");
+                let dateKey = retrievedDateEntry[0];
+                let dateObjectLength = retrievedDateEntry[1];
+                let retrievedDateObject = JSON.parse(localStorage[dateKey]);
+                eleObject = retrievedDateObject;
 
-                let minus = document.createElement("button");
-                minus.setAttribute("id", `minus-${rowCount}`);
-                minus.setAttribute("class", "minus");
-                minus.innerText = "-";
-                rowL.appendChild(minus);
+                for (let i = 0; i < dateObjectLength; i++) {
+                        date.value = retrievedDateObject[`date-${rowCount}`];
 
-                let plus = document.createElement("button");
-                plus.setAttribute("id", `plus-${rowCount}`);
-                plus.setAttribute("class", "plus");
-                plus.innerText = "+";
-                rowL.appendChild(plus);
+                        date.addEventListener("input", () => {
+                            let currDateEntry = date.id;
+                            let dateVal = date.value;
 
-                plus.addEventListener("click", () => {
-                    let checkbox = document.createElement("input");
-                    checkbox.setAttribute("type", "checkbox");
-                    rowLength++;
-                    rowR.innerText = rowLength;
-                    rowM.appendChild(checkbox);
-                });
+                            dateQueue.push(currDateEntry);
+                            eleObject[currDateEntry] = dateVal;
+                            localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+                            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
 
-                let rowM = document.createElement("div");
-                rowM.setAttribute("id", `rowM-${rowCount}`);
-                rowM.setAttribute("class", "row rowM");
-                main.appendChild(rowM);
-                let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
-
-                let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
-                let uncheckedBoxes = 0;
-
-                plus.addEventListener("click", () => {
-                    let checkbox = document.createElement("input");
-                    checkbox.setAttribute("type", "checkbox");
-                    rowR.innerText = uncheckedBoxes;
-                    rowM.appendChild(checkbox);
-
-                    checkbox.addEventListener("click", () => {
-                        let mainColumnArray = Array.from(rowMDiv.children);
-                        let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
-                            return !checkbox.checked;
+                            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                                let lastDateEntry = dateQueue.shift();
+                                localStorage.removeItem(lastDateEntry);
+                            }
                         });
-                        uncheckedBoxes = uncheckedBoxesArray.length;
-                        rowR.innerText = uncheckedBoxes;
-                    });
+                        allLocalStorageKeys.forEach(val=> {
+                             if (val.includes("date-") && val !== dateKey) {
+                                 localStorage.removeItem(val)
+                             }
+                          });
+                    }
+                        let minus = document.createElement("button");
+                        minus.setAttribute("id", `minus-${rowCount}`);
+                        minus.setAttribute("class", "minus");
+                        minus.innerText = "-";
+                        rowL.appendChild(minus);
 
-                    let mainColumnArray = Array.from(rowMDiv.children);
-                    let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
-                        return !checkbox.checked;
-                    });
-                    uncheckedBoxes = uncheckedBoxesArray.length;
-                    rowR.innerText = uncheckedBoxes;
-                });
+                        let plus = document.createElement("button");
+                        plus.setAttribute("id", `plus-${rowCount}`);
+                        plus.setAttribute("class", "plus");
+                        plus.innerText = "+";
+                        rowL.appendChild(plus);
 
-                let rowR = document.createElement("div");
-                rowR.setAttribute("id", `rowR-${rowCount}`);
-                rowR.setAttribute("class", "row rowR");
-                rowR.innerText = rowLength;
-                rightSidebar.appendChild(rowR);
+                        plus.addEventListener("click", () => {
+                            let checkbox = document.createElement("input");
+                            checkbox.setAttribute("type", "checkbox");
+                            rowLength++;
+                            rowR.innerText = rowLength;
+                            rowM.appendChild(checkbox);
+                        });
 
-                rowCount++;
+                        let rowM = document.createElement("div");
+                        rowM.setAttribute("id", `rowM-${rowCount}`);
+                        rowM.setAttribute("class", "row rowM");
+                        main.appendChild(rowM);
+                        let rowLength = document.querySelector(`#rowM-${rowCount}`).children.length;
+
+                        let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
+                        let uncheckedBoxes = 0;
+
+                        plus.addEventListener("click", () => {
+                            let checkbox = document.createElement("input");
+                            checkbox.setAttribute("type", "checkbox");
+                            rowR.innerText = uncheckedBoxes;
+                            rowM.appendChild(checkbox);
+
+                            checkbox.addEventListener("click", () => {
+                                let mainColumnArray = Array.from(rowMDiv.children);
+                                let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                    return !checkbox.checked;
+                                });
+                                uncheckedBoxes = uncheckedBoxesArray.length;
+                                rowR.innerText = uncheckedBoxes;
+                            });
+
+                            let mainColumnArray = Array.from(rowMDiv.children);
+                            let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                return !checkbox.checked;
+                            });
+                            uncheckedBoxes = uncheckedBoxesArray.length;
+                            rowR.innerText = uncheckedBoxes;
+                        });
+
+                        let rowR = document.createElement("div");
+                        rowR.setAttribute("id", `rowR-${rowCount}`);
+                        rowR.setAttribute("class", "row rowR");
+                        rowR.innerText = rowLength;
+                        rightSidebar.appendChild(rowR);
+
+                        rowCount++;
+                }
+
+
         }
-        
-       return allLocalStorageKeys.forEach(val=> {
-            if (val.includes("date-") && val !== dateKey) {
-                localStorage.removeItem(val)
-            }
-         });
+
+
+
     }
 }
 
@@ -205,6 +217,7 @@ const newRow = () => {
         rightSidebar.appendChild(rowR);
 
         rowCount++;
+        localStorage.setItem("rowCount", rowCount);
     });
 }
 
