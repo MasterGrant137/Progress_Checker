@@ -13,6 +13,7 @@ const renderPage = () => {
         let retrievedRowCount = Number(localStorage["rowCount"]);
 
         for (let i = 0; i < retrievedRowCount; i++) {
+
             let rowL = document.createElement("div");
             rowL.setAttribute("id", `rowL-${rowCount}`);
             rowL.setAttribute("class", "row rowL");
@@ -79,8 +80,16 @@ const renderPage = () => {
                         rowM.setAttribute("class", "row rowM");
                         main.appendChild(rowM);
 
+                        let rowR = document.createElement("div");
+                        rowR.setAttribute("id", `rowR-${rowCount}`);
+                        rowR.setAttribute("class", "row rowR");
+                        rightSidebar.appendChild(rowR);
+                        rowCount++;
+                        localStorage.setItem("rowCount", rowCount);
+
                         let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
                         let uncheckedBoxes = 0;
+                        rowR.innerText = uncheckedBoxes;
 
                         plus.addEventListener("click", () => {
                             let plusRow = Number(plus.id.split("-")[1]);
@@ -127,27 +136,62 @@ const renderPage = () => {
 
                         if (localStorage["checkboxObject"]) {
                             let retrievedCheckboxArray = JSON.parse(localStorage["checkboxObject"])[rowCount];
+                            let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
+
                             for (let i = 0; i < Object.keys(retrievedCheckboxArray).length; i++) {
+
                                 let retrievedBooleans = retrievedCheckboxArray[i];
-                                let row = document.querySelector(`#rowM-${rowCount}`);
+                                let plusRow = Number(plus.id.split("-")[1]);
                                 let checkbox = document.createElement("input");
                                 checkbox.setAttribute("type", "checkbox");
-                                checkbox.setAttribute("class", `checkboxRow-${i}`);
+                                checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
+
+                                rowM.appendChild(checkbox);
+                                rowR.innerText = uncheckedBoxes;
                                 rowM.appendChild(checkbox);
                                 checkbox.checked = retrievedBooleans;
+
+                                checkbox.addEventListener("click", () => {
+                                    let mainColumnArray = Array.from(rowMDiv.children);
+                                    let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                            return !checkbox.checked;
+                                        });
+
+                                    uncheckedBoxes = uncheckedBoxesArray.length;
+                                    rowR.innerText = uncheckedBoxes;
+                                    let checkboxArray = mainColumnArray.map(checkbox => {
+                                        return checkbox.checked;
+                                    });
+
+                                    let checkboxRow = Number(checkbox.className.split("-")[1]);
+                                    checkboxObject[checkboxRow] = checkboxArray;
+                                    localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
+                                });
+
+                                let mainColumnArray = Array.from(rowMDiv.children);
+                                localStorage.setItem("checkboxCount", mainColumnArray.length);
+
+                                let checkboxArray = mainColumnArray.map(checkbox => {
+                                    return checkbox.checked;
+                                });
+
+                                checkboxObject[plusRow] = checkboxArray;
+                                localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
+
+                                let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                    return !checkbox.checked;
+                                });
+
+                                uncheckedBoxes = uncheckedBoxesArray.length;
+                                rowR.innerText = uncheckedBoxes;
+
                             }
                         }
 
-                    let rowR = document.createElement("div");
-                    rowR.setAttribute("id", `rowR-${rowCount}`);
-                    rowR.setAttribute("class", "row rowR");
-                    rowR.innerText = uncheckedBoxes;
-                    rightSidebar.appendChild(rowR);
 
-                    rowCount++;
-                    localStorage.setItem("rowCount", rowCount);
-        }
-    }
+
+                    }
+                }
 }
 
 
