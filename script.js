@@ -125,6 +125,19 @@ const renderPage = () => {
                                 rowR.innerText = uncheckedBoxes;
                         });
 
+                        if (localStorage["checkboxObject"]) {
+                            let retrievedCheckboxArray = JSON.parse(localStorage["checkboxObject"])[rowCount];
+                            for (let i = 0; i < Object.keys(retrievedCheckboxArray).length; i++) {
+                                let retrievedBooleans = retrievedCheckboxArray[i];
+                                let row = document.querySelector(`#rowM-${rowCount}`);
+                                let checkbox = document.createElement("input");
+                                checkbox.setAttribute("type", "checkbox");
+                                checkbox.setAttribute("class", `checkboxRow-${i}`);
+                                rowM.appendChild(checkbox);
+                                checkbox.checked = retrievedBooleans;
+                            }
+                        }
+
                     let rowR = document.createElement("div");
                     rowR.setAttribute("id", `rowR-${rowCount}`);
                     rowR.setAttribute("class", "row rowR");
