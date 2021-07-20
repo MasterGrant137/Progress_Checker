@@ -53,12 +53,14 @@ const renderPage = () => {
                                 localStorage.removeItem(lastDateEntry);
                             }
                         });
+                        
                         allLocalStorageKeys.forEach(val=> {
                              if (val.includes("date-") && val !== dateKey) {
                                  localStorage.removeItem(val)
                              }
                           });
-                    }
+                }
+            }
                         let minus = document.createElement("button");
                         minus.setAttribute("id", `minus-${rowCount}`);
                         minus.setAttribute("class", "minus");
@@ -121,7 +123,6 @@ const renderPage = () => {
                         rowCount++;
                     }
                 }
-            }
         }
 
         const newRow = () => {
