@@ -1,7 +1,7 @@
 let rowCount = 0;
 let eleObject = {};
 let dateQueue = [];
-let checkboxArrays = [];
+let checkboxObject = {};
 
 const renderPage = () => {
     let leftSideBar = document.querySelector("#left-sidebar");
@@ -185,11 +185,15 @@ const renderPage = () => {
                 plus.addEventListener("click", () => {
                     let checkbox = document.createElement("input");
                     checkbox.setAttribute("type", "checkbox");
+                    checkbox.setAttribute("class", `checkboxRow-${rowCount}`);
                     rowR.innerText = uncheckedBoxes;
                     rowM.appendChild(checkbox);
 
                     checkbox.addEventListener("click", () => {
                         let mainColumnArray = Array.from(rowMDiv.children);
+                        //* this grabs the appropriate input, not the class though
+                        let checkboxRow = checkbox;
+                        console.log(checkboxRow)
                         let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
                             return !checkbox.checked;
                         });
@@ -198,8 +202,8 @@ const renderPage = () => {
                         let checkboxArray = mainColumnArray.map(checkbox => {
                             return checkbox.checked;
                         });
-                        checkboxArrays[rowCount] = checkboxArray;
-                        localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
+                        checkboxObject[checkboxRow] = checkboxArray;
+                        localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                     });
 
                     let mainColumnArray = Array.from(rowMDiv.children);
@@ -208,13 +212,9 @@ const renderPage = () => {
                     let checkboxArray = mainColumnArray.map(checkbox => {
                         return checkbox.checked;
                     });
-                    if (!checkboxArrays[rowCount]) {
-                        checkboxArrays.push(checkboxArray);
-                        localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
-                    } else if (checkboxArrays[rowCount]) {
-                        checkboxArrays[rowCount] = checkboxArray;
-                        localStorage.setItem("checkboxArrays", JSON.stringify(checkboxArrays));
-                    }
+                        let plusRow;
+                        checkboxObject[rowCount] = checkboxArray;
+                        localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
                     let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
                         return !checkbox.checked;
