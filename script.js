@@ -183,17 +183,15 @@ const renderPage = () => {
                 let uncheckedBoxes = 0;
 
                 plus.addEventListener("click", () => {
+                    let plusRow = Number(plus.id.split("-")[1]);
                     let checkbox = document.createElement("input");
                     checkbox.setAttribute("type", "checkbox");
-                    checkbox.setAttribute("class", `checkboxRow-${rowCount}`);
+                    checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
                     rowR.innerText = uncheckedBoxes;
                     rowM.appendChild(checkbox);
 
                     checkbox.addEventListener("click", () => {
                         let mainColumnArray = Array.from(rowMDiv.children);
-                        //* this grabs the appropriate input, not the class though
-                        let checkboxRow = checkbox;
-                        console.log(checkboxRow)
                         let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
                             return !checkbox.checked;
                         });
@@ -202,6 +200,7 @@ const renderPage = () => {
                         let checkboxArray = mainColumnArray.map(checkbox => {
                             return checkbox.checked;
                         });
+                        let checkboxRow = Number(checkbox.className.split("-")[1]);
                         checkboxObject[checkboxRow] = checkboxArray;
                         localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                     });
@@ -212,8 +211,8 @@ const renderPage = () => {
                     let checkboxArray = mainColumnArray.map(checkbox => {
                         return checkbox.checked;
                     });
-                        let plusRow;
-                        checkboxObject[rowCount] = checkboxArray;
+
+                        checkboxObject[plusRow] = checkboxArray;
                         localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
                     let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
