@@ -53,14 +53,15 @@ const renderPage = () => {
                                 localStorage.removeItem(lastDateEntry);
                             }
                         });
-                        
-                        allLocalStorageKeys.forEach(val=> {
-                             if (val.includes("date-") && val !== dateKey) {
-                                 localStorage.removeItem(val)
-                             }
+
+                          allLocalStorageKeys.forEach(val=> {
+                               if (val.includes("date-") && val !== dateKey) {
+                                   localStorage.removeItem(val)
+                               }
                           });
                 }
             }
+
                         let minus = document.createElement("button");
                         minus.setAttribute("id", `minus-${rowCount}`);
                         minus.setAttribute("class", "minus");
@@ -73,6 +74,8 @@ const renderPage = () => {
                         plus.innerText = "+";
                         rowL.appendChild(plus);
 
+            if (localStorage["checkboxObject"]) {
+                for (let i = 0; i < rowCount; i++) {
                         plus.addEventListener("click", () => {
                             let checkbox = document.createElement("input");
                             checkbox.setAttribute("type", "checkbox");
@@ -121,9 +124,11 @@ const renderPage = () => {
                         rightSidebar.appendChild(rowR);
 
                         rowCount++;
-                    }
                 }
+            }
         }
+    }
+}
 
         const newRow = () => {
             let leftSideBar = document.querySelector("#left-sidebar");
