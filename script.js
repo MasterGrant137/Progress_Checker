@@ -13,6 +13,7 @@ const renderPage = () => {
         let retrievedRowCount = Number(localStorage["rowCount"]);
 
         for (let i = 0; i < retrievedRowCount; i++) {
+            rowCount = retrievedRowCount;
 
             let rowL = document.createElement("div");
             rowL.setAttribute("id", `rowL-${rowCount}`);
@@ -84,10 +85,9 @@ const renderPage = () => {
                         rowR.setAttribute("id", `rowR-${rowCount}`);
                         rowR.setAttribute("class", "row rowR");
                         rightSidebar.appendChild(rowR);
-                        rowCount++;
-                        localStorage.setItem("rowCount", rowCount);
 
-                        let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
+                        //* AREA of contention
+                        let rowMDiv = document.querySelector(`#rowM-${rowCount - 1}`);
                         let uncheckedBoxes = 0;
                         rowR.innerText = uncheckedBoxes;
 
@@ -100,7 +100,8 @@ const renderPage = () => {
                             rowM.appendChild(checkbox);
 
                             checkbox.addEventListener("click", () => {
-                                let mainColumnArray = Array.from(rowMDiv.children);
+                                 //* changed rowMDiv to rowM
+                                let mainColumnArray = Array.from(rowM.children);
                                 let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
                                         return !checkbox.checked;
                                     });
@@ -116,7 +117,8 @@ const renderPage = () => {
                                 localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                             });
 
-                                let mainColumnArray = Array.from(rowMDiv.children);
+                            //* changed rowMDiv to rowM
+                                let mainColumnArray = Array.from(rowM.children);
                                 localStorage.setItem("checkboxCount", mainColumnArray.length);
 
                                 let checkboxArray = mainColumnArray.map(checkbox => {
@@ -134,13 +136,21 @@ const renderPage = () => {
                                 rowR.innerText = uncheckedBoxes;
                         });
 
+
                         if (localStorage["checkboxObject"]) {
-                            let retrievedCheckboxArray = JSON.parse(localStorage["checkboxObject"])[rowCount];
-                            let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
 
-                            for (let i = 0; i < Object.keys(retrievedCheckboxArray).length; i++) {
+                            let pacerCount = 0;
+                            for (let pacer = 0; pacer < retrievedRowCount; pacer++) {
+                                pacerCount++
+                            }
 
-                                let retrievedBooleans = retrievedCheckboxArray[i];
+                            let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
+                            let retrievedCheckboxArray = retrievedCheckboxObject[pacerCount];
+                            console.log(retrievedCheckboxArray)
+                            for (let j = 0; j < retrievedCheckboxArray; j++) {
+                                console.log(pacerCount)
+                                let retrievedBooleans = retrievedCheckboxArray[j];
+                                console.log(`retrievedBooleans ${retrievedBooleans}`)
                                 let plusRow = Number(plus.id.split("-")[1]);
                                 let checkbox = document.createElement("input");
                                 checkbox.setAttribute("type", "checkbox");
@@ -168,7 +178,8 @@ const renderPage = () => {
                                     localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                                 });
 
-                                let mainColumnArray = Array.from(rowMDiv.children);
+                                //* changed rowMDiv to rowM
+                                let mainColumnArray = Array.from(rowM.children);
                                 localStorage.setItem("checkboxCount", mainColumnArray.length);
 
                                 let checkboxArray = mainColumnArray.map(checkbox => {
@@ -188,7 +199,8 @@ const renderPage = () => {
                             }
                         }
 
-
+                        // rowCount++;
+                        localStorage.setItem("rowCount", rowCount);
 
                     }
                 }
