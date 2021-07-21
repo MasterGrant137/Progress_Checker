@@ -13,7 +13,7 @@ const renderPage = () => {
         let retrievedRowCount = Number(localStorage["rowCount"]);
 
         for (let i = 0; i < retrievedRowCount; i++) {
-            rowCount = retrievedRowCount;
+            // rowCount = retrievedRowCount;
 
             let rowL = document.createElement("div");
             rowL.setAttribute("id", `rowL-${rowCount}`);
@@ -87,7 +87,6 @@ const renderPage = () => {
                         rightSidebar.appendChild(rowR);
 
                         //* AREA of contention
-                        let rowMDiv = document.querySelector(`#rowM-${rowCount - 1}`);
                         let uncheckedBoxes = 0;
                         rowR.innerText = uncheckedBoxes;
 
@@ -141,17 +140,18 @@ const renderPage = () => {
 
                             let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
                             let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
-
+                            console.log(retrievedCheckboxArrays)
                             //*this is the start of the forEach
                             retrievedCheckboxArrays.forEach((array, row) => {
+                                console.log(array + " and " + row)
                                 let retrievedBooleans = array[1];
-                                console.log(retrievedBooleans)
+                                // console.log(retrievedBooleans)
                                 let plusRow = Number(plus.id.split("-")[1]);
                                 let checkbox = document.createElement("input");
                                 checkbox.setAttribute("type", "checkbox");
-                                checkbox.setAttribute("class", `checkboxRow-${row}`);
+                                checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
 
-                                for (let i = 0; i < localStorage["rowCount"]; i++) {
+
 
                                     rowM.appendChild(checkbox);
                                     rowR.innerText = uncheckedBoxes;
@@ -194,13 +194,13 @@ const renderPage = () => {
 
                                     uncheckedBoxes = uncheckedBoxesArray.length;
                                     rowR.innerText = uncheckedBoxes;
-                                }
+
 
                             });
                             //*this is the end of the forEach
                         }
 
-                        // rowCount++;
+                        rowCount++;
                         localStorage.setItem("rowCount", rowCount);
 
                     }
