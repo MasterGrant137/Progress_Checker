@@ -13,7 +13,6 @@ const renderPage = () => {
         let retrievedRowCount = Number(localStorage["rowCount"]);
 
         for (let i = 0; i < retrievedRowCount; i++) {
-            // rowCount = retrievedRowCount;
 
             let rowL = document.createElement("div");
             rowL.setAttribute("id", `rowL-${rowCount}`);
@@ -76,25 +75,26 @@ const renderPage = () => {
                         plus.innerText = "+";
                         rowL.appendChild(plus);
 
+                        //* trying to access this main
                         let rowM = document.createElement("div");
                         rowM.setAttribute("id", `rowM-${rowCount}`);
                         rowM.setAttribute("class", "row rowM");
                         main.appendChild(rowM);
+                        mainRow = rowM;
 
                         let rowR = document.createElement("div");
                         rowR.setAttribute("id", `rowR-${rowCount}`);
                         rowR.setAttribute("class", "row rowR");
                         rightSidebar.appendChild(rowR);
 
-                        //* AREA of contention
                         let uncheckedBoxes = 0;
                         rowR.innerText = uncheckedBoxes;
 
                         plus.addEventListener("click", () => {
                             let plusRow = Number(plus.id.split("-")[1]);
                             let checkbox = document.createElement("input");
-                            checkbox.setAttribute("type", "checkbox");
                             checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
+                            checkbox.setAttribute("type", "checkbox");
                             rowR.innerText = uncheckedBoxes;
                             rowM.appendChild(checkbox);
 
@@ -134,79 +134,102 @@ const renderPage = () => {
                                 uncheckedBoxes = uncheckedBoxesArray.length;
                                 rowR.innerText = uncheckedBoxes;
                         });
+            //* this is the beginning of the static part of the render
+                // if (localStorage["checkboxObject"]) {
+                //         let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
+                //         let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
+                //         //
+                //         //     //*this is the start of the forEach
+                //         retrievedCheckboxArrays.forEach((array, row) => {
+                //                 let plusRow = Number(plus.id.split("-")[1]);
+                //                 console.log(plusRow)
+                        //         if (localStorage["checkboxObject"][plusRow]) {
+                        //             let retrievedBooleans = array[1];
+                        //             for (let i = 0; i < retrievedBooleans.length; i++) {
+                        //                 // let plusRow = Number(plus.id.split("-")[1]);
+                        //                 let checkbox = document.createElement("input");
+                        //                 checkbox.setAttribute("type", "checkbox");
+                        //                 checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
 
+                        //                 rowM.appendChild(checkbox);
+                        //                 rowR.innerText = uncheckedBoxes;
+                        //                 rowM.appendChild(checkbox);
+                        //                 // console.log(i)
+                        //                 checkbox.checked = retrievedBooleans[i];
 
-                        if (localStorage["checkboxObject"]) {
+                        //                 checkbox.addEventListener("click", () => {
+                        //                     //*changed from rowMDiv to rowM
+                        //                     let mainColumnArray = Array.from(rowM.children);
+                        //                     let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                        //                             return !checkbox.checked;
+                        //                      });
 
-                            let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
-                            let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
-                            console.log(retrievedCheckboxArrays)
-                            //*this is the start of the forEach
-                            retrievedCheckboxArrays.forEach((array, row) => {
+                        //                     uncheckedBoxes = uncheckedBoxesArray.length;
+                        //                     rowR.innerText = uncheckedBoxes;
+                        //                     let checkboxArray = mainColumnArray.map(checkbox => {
+                        //                         return checkbox.checked;
+                        //                     });
 
-                          if (localStorage["checkboxObject"][rowCount]) {
-                            let retrievedBooleans = array[1];
-                            for (let i = 0; i < retrievedBooleans.length; i++) {
-                                let plusRow = Number(plus.id.split("-")[1]);
-                                let checkbox = document.createElement("input");
-                                checkbox.setAttribute("type", "checkbox");
-                                checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
+                        //                     let checkboxRow = Number(checkbox.className.split("-")[1]);
+                        //                     checkboxObject[checkboxRow] = checkboxArray;
+                        //                     localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
+                        //                 });
 
-                                rowM.appendChild(checkbox);
-                                rowR.innerText = uncheckedBoxes;
-                                rowM.appendChild(checkbox);
-                                // console.log(i)
-                                checkbox.checked = retrievedBooleans[i];
+                        //                 //* changed rowMDiv to rowM
+                        //                 let mainColumnArray = Array.from(rowM.children);
+                        //                 localStorage.setItem("checkboxCount", mainColumnArray.length);
 
-                                checkbox.addEventListener("click", () => {
-                                    //*changed from rowMDiv to rowM
-                                    let mainColumnArray = Array.from(rowM.children);
-                                    let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
-                                            return !checkbox.checked;
-                                        });
+                        //                 let checkboxArray = mainColumnArray.map(checkbox => {
+                        //                     return checkbox.checked;
+                        //             });
 
-                                    uncheckedBoxes = uncheckedBoxesArray.length;
-                                    rowR.innerText = uncheckedBoxes;
-                                    let checkboxArray = mainColumnArray.map(checkbox => {
-                                        return checkbox.checked;
-                                    });
+                        //                 checkboxObject[plusRow] = checkboxArray;
+                        //                 localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
-                                    let checkboxRow = Number(checkbox.className.split("-")[1]);
-                                    checkboxObject[checkboxRow] = checkboxArray;
-                                    localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
-                                });
+                        //                 let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                        //                 return !checkbox.checked;
+                        //                 });
 
-                                //* changed rowMDiv to rowM
-                                let mainColumnArray = Array.from(rowM.children);
-                                localStorage.setItem("checkboxCount", mainColumnArray.length);
+                        //                 uncheckedBoxes = uncheckedBoxesArray.length;
+                        //                 rowR.innerText = uncheckedBoxes;
+                        //             }
+                        //         }
 
-                                let checkboxArray = mainColumnArray.map(checkbox => {
-                                    return checkbox.checked;
-                                });
-
-                                checkboxObject[plusRow] = checkboxArray;
-                                localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
-
-                                let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
-                                    return !checkbox.checked;
-                                });
-
-                                uncheckedBoxes = uncheckedBoxesArray.length;
-                                rowR.innerText = uncheckedBoxes;
-                            }
-                          }
-
-
-
-                            });
-                            //*this is the end of the forEach
-                        }
+                            // });
+                        //     //*this is the end of the forEach
+                        // }
 
                         rowCount++;
                         localStorage.setItem("rowCount", rowCount);
 
-                    }
-                }
+        }
+                // let currentMainRow = Number(mainRow.id.split("-")[1]);
+                                // console.log(currentMainRow)
+
+                                if (localStorage["checkboxObject"]) {
+                                    let rowCount = localStorage["rowCount"];
+                                    for (let row = 0; row < rowCount; row++) {
+                                        let currentRow = document.querySelector(`#rowM-${row}`);
+                                        let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
+                                        let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
+                                        let retrievedBooleans = retrievedCheckboxArrays[row][1];
+
+                                        console.log(retrievedCheckboxArrays[row][1])
+                                        retrievedBooleans.map(boolean => {
+                                            let checkbox = document.createElement("input");
+                                            checkbox.setAttribute("type", "checkbox");
+                                            checkbox.setAttribute("class", `checkboxRow-${row}`);
+                                            currentRow.appendChild(checkbox);
+                                            // console.log(boolean);
+                                            if (boolean) {
+                                                checkbox.checked = true;
+                                            }
+                                        })
+                                        // retrievedBooleans[row];
+                                    }
+
+                                }
+    }
 }
 
 
@@ -271,8 +294,8 @@ const newRow = () => {
             plus.addEventListener("click", () => {
                 let plusRow = Number(plus.id.split("-")[1]);
                 let checkbox = document.createElement("input");
-                checkbox.setAttribute("type", "checkbox");
                 checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
+                checkbox.setAttribute("type", "checkbox");
                 rowR.innerText = uncheckedBoxes;
                 rowM.appendChild(checkbox);
 
