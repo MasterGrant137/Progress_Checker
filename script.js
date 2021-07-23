@@ -205,9 +205,10 @@ const renderPage = () => {
         }
                 // let currentMainRow = Number(mainRow.id.split("-")[1]);
                                 // console.log(currentMainRow)
-
+                                // console.log(checkboxObject)
                                 if (localStorage["checkboxObject"]) {
                                     let rowCount = localStorage["rowCount"];
+                                    checkboxObject = JSON.parse(localStorage["checkboxObject"]);
                                     for (let row = 0; row < rowCount; row++) {
                                         let currentMainRow = document.querySelector(`#rowM-${row}`);
                                         let currentRightRow = document.querySelector(`#rowR-${row}`);
@@ -215,9 +216,8 @@ const renderPage = () => {
                                         let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
                                         let retrievedBooleans = retrievedCheckboxArrays[row][1];
 
-                                        let checkbox;
                                         retrievedBooleans.map(boolean => {
-                                            checkbox = document.createElement("input");
+                                           let checkbox = document.createElement("input");
                                             checkbox.setAttribute("type", "checkbox");
                                             checkbox.setAttribute("class", `checkboxRow-${row}`);
                                             currentMainRow.appendChild(checkbox);
@@ -235,13 +235,13 @@ const renderPage = () => {
 
                                                uncheckedBoxes = uncheckedBoxesArray.length;
                                                currentRightRow.innerText = uncheckedBoxes;
-                                            //    let checkboxArray = mainColumnArray.map(checkbox => {
-                                            //        return checkbox.checked;
-                                            //    });
+                                               let checkboxArray = mainColumnArray.map(checkbox => {
+                                                   return checkbox.checked;
+                                               });
+                                               let checkboxRow = Number(checkbox.className.split("-")[1]);
+                                               checkboxObject[checkboxRow] = checkboxArray;
+                                               localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
-                                            //    let checkboxRow = Number(checkbox.className.split("-")[1]);
-                                            //    checkboxObject[checkboxRow] = checkboxArray;
-                                            //    localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                                            });
 
                                         // //    //* changed rowMDiv to rowM
