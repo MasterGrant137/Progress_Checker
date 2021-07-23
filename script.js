@@ -209,23 +209,61 @@ const renderPage = () => {
                                 if (localStorage["checkboxObject"]) {
                                     let rowCount = localStorage["rowCount"];
                                     for (let row = 0; row < rowCount; row++) {
-                                        let currentRow = document.querySelector(`#rowM-${row}`);
+                                        let currentMainRow = document.querySelector(`#rowM-${row}`);
+                                        let currentRightRow = document.querySelector(`#rowR-${row}`);
                                         let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
                                         let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
                                         let retrievedBooleans = retrievedCheckboxArrays[row][1];
 
-                                        console.log(retrievedCheckboxArrays[row][1])
+                                        let checkbox;
                                         retrievedBooleans.map(boolean => {
-                                            let checkbox = document.createElement("input");
+                                            checkbox = document.createElement("input");
                                             checkbox.setAttribute("type", "checkbox");
                                             checkbox.setAttribute("class", `checkboxRow-${row}`);
-                                            currentRow.appendChild(checkbox);
-                                            // console.log(boolean);
+                                            currentMainRow.appendChild(checkbox);
+
                                             if (boolean) {
                                                 checkbox.checked = true;
                                             }
+
+                                            checkbox.addEventListener("click", () => {
+                                                //* changed rowMDiv to rowM
+                                               let mainColumnArray = Array.from(currentMainRow.children);
+                                               let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                                       return !checkbox.checked;
+                                                   });
+
+                                               uncheckedBoxes = uncheckedBoxesArray.length;
+                                               currentRightRow.innerText = uncheckedBoxes;
+                                            //    let checkboxArray = mainColumnArray.map(checkbox => {
+                                            //        return checkbox.checked;
+                                            //    });
+
+                                            //    let checkboxRow = Number(checkbox.className.split("-")[1]);
+                                            //    checkboxObject[checkboxRow] = checkboxArray;
+                                            //    localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
+                                           });
+
+                                        // //    //* changed rowMDiv to rowM
+                                               let mainColumnArray = Array.from(currentMainRow.children);
+                                            //    localStorage.setItem("checkboxCount", mainColumnArray.length);
+
+                                            //    let checkboxArray = mainColumnArray.map(checkbox => {
+                                            //        return checkbox.checked;
+                                            //    });
+
+                                            //    checkboxObject[row] = checkboxArray;
+                                            //    localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
+
+                                               let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                                                   return !checkbox.checked;
+                                               });
+
+                                               uncheckedBoxes = uncheckedBoxesArray.length;
+                                               currentRightRow.innerText = uncheckedBoxes;
                                         })
-                                        // retrievedBooleans[row];
+
+
                                     }
 
                                 }
