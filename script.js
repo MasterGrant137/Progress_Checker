@@ -7,11 +7,13 @@ const renderPage = () => {
     let leftSideBar = document.querySelector("#left-sidebar");
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
+    let newRowButton = document.querySelector("#new-row");
 
     if (localStorage["rowCount"]) {
         let allLocalStorageKeys = Object.keys(localStorage);
         let retrievedRowCount = Number(localStorage["rowCount"]);
 
+    //  newRowButton.addEventListener("click", () => {
         for (let i = 0; i < retrievedRowCount; i++) {
 
             let rowL = document.createElement("div");
@@ -29,6 +31,29 @@ const renderPage = () => {
             date.setAttribute("id", `date-${rowCount}`);
             date.setAttribute("class", "date");
             rowL.appendChild(date);
+
+        // if (localStorage["currDateEntry"]) {
+        //     let retrievedDateEntry = localStorage["currDateEntry"].split(",");
+        //     let dateKey = retrievedDateEntry[0];
+        //     let dateObjectLength = retrievedDateEntry[1];
+        //     let retrievedDateObject = JSON.parse(localStorage[dateKey]);
+        //     eleObject = retrievedDateObject;
+
+        //     date.addEventListener("input", () => {
+        //         let currDateEntry = date.id;
+        //         let dateVal = date.value;
+
+        //         dateQueue.push(currDateEntry);
+        //         eleObject[currDateEntry] = dateVal;
+        //         localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
+        //         localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
+
+        //         if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+        //                     let lastDateEntry = dateQueue.shift();
+        //                     localStorage.removeItem(lastDateEntry);
+        //         }
+        //     });
+        // }
 
             if (localStorage["currDateEntry"]) {
                 let retrievedDateEntry = localStorage["currDateEntry"].split(",");
@@ -203,12 +228,14 @@ const renderPage = () => {
                         localStorage.setItem("rowCount", rowCount);
 
         }
+    // })
+
                 // let currentMainRow = Number(mainRow.id.split("-")[1]);
                                 // console.log(currentMainRow)
                                 // console.log(checkboxObject)
                                 if (localStorage["checkboxObject"]) {
-                                    let rowCount = localStorage["rowCount"];
                                     checkboxObject = JSON.parse(localStorage["checkboxObject"]);
+                                    let rowCount = Object.keys(checkboxObject).length;
                                     for (let row = 0; row < rowCount; row++) {
                                         let currentMainRow = document.querySelector(`#rowM-${row}`);
                                         let currentRightRow = document.querySelector(`#rowR-${row}`);
@@ -276,6 +303,7 @@ const newRow = () => {
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
     let newRowButton = document.querySelector("#new-row");
+    let resetPageButton = document.querySelector("#reset-page");
 
     newRowButton.addEventListener("click", () => {
         let rowL = document.createElement("div");
@@ -380,6 +408,10 @@ const newRow = () => {
 
         rowCount++;
         localStorage.setItem("rowCount", rowCount);
+    });
+
+    resetPageButton.addEventListener("click", () => {
+
     });
 }
 
