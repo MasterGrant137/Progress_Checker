@@ -3,12 +3,13 @@ let dateObject = {};
 let dateQueue = [];
 let checkboxObject = {};
 
-rowCount = Number(localStorage.rowCount)
-dateObject = JSON.parse(localStorage.checkboxObject)
-console.log(dateObject)
-// console.log(JSON.parse(localStorage.currDateEntry))
-// rowCount = JSON.parse(localStorage.currDateEntry.split(",")[0].split("-")[1])
-// dateObject = JSON.parse(localStorage.checkboxObject);
+export const loadValues = () => {
+    if (localStorage.rowCount) rowCount = Number(localStorage.rowCount);
+    if (localStorage.dateObject) dateObject = JSON.parse(localStorage.checkboxObject);
+    if (localStorage.dateQueue) dateQueue = JSON.parse(localStorage.dateQueue);
+    else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+    if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkbdoxObject);
+}
 
 export const newRow = () => {
     let leftSideBar = document.querySelector("#left-sidebar");
@@ -40,6 +41,7 @@ export const newRow = () => {
 
             dateQueue.push(currDateEntry);
             dateObject[currDateEntry] = dateVal;
+            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
             localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
             localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
 

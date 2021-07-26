@@ -13,7 +13,6 @@ export const renderPage = () => {
         let retrievedRowCount = Number(localStorage.rowCount);
 
         for (let i = 0; i < retrievedRowCount; i++) {
-
             let rowL = document.createElement("div");
             rowL.setAttribute("id", `rowL-${rowCount}`);
             rowL.setAttribute("class", "row rowL");
@@ -36,6 +35,7 @@ export const renderPage = () => {
 
                 dateQueue.push(currDateEntry);
                 dateObject[currDateEntry] = dateVal;
+                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                 localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
                 localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
 
@@ -52,6 +52,7 @@ export const renderPage = () => {
                 let retrievedDateObject = JSON.parse(localStorage[dateKey]);
                 dateObject = retrievedDateObject;
 
+
                 for (let i = 0; i < dateObjectLength; i++) {
                         date.value = retrievedDateObject[`date-${rowCount}`];
 
@@ -61,6 +62,7 @@ export const renderPage = () => {
 
                             dateQueue.push(currDateEntry);
                             dateObject[currDateEntry] = dateVal;
+                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
                             localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
 
@@ -180,10 +182,10 @@ export const renderPage = () => {
                                                let checkboxArray = mainColumnArray.map(checkbox => {
                                                    return checkbox.checked;
                                                });
+
                                                let checkboxRow = Number(checkbox.className.split("-")[1]);
                                                checkboxObject[checkboxRow] = checkboxArray;
                                                localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
-
                                            });
 
                                                let mainColumnArray = Array.from(currentMainRow.children);
@@ -198,6 +200,4 @@ export const renderPage = () => {
                                     }
                                 }
     }
-    // dateObject = JSON.parse(localStorage[`date`])
-    console.log(`rowCount: ${rowCount}, dateObject: ${dateObject}, dateQueue: ${dateQueue}, checkbox: ${checkboxObject}`)
 }
