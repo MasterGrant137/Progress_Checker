@@ -1,5 +1,5 @@
 let rowCount = 0;
-let eleObject = {};
+let dateObject = {};
 let dateQueue = [];
 let checkboxObject = {};
 
@@ -8,9 +8,9 @@ export const renderPage = () => {
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
 
-    if (localStorage["rowCount"]) {
+    if (localStorage.rowCount) {
         let allLocalStorageKeys = Object.keys(localStorage);
-        let retrievedRowCount = Number(localStorage["rowCount"]);
+        let retrievedRowCount = Number(localStorage.rowCount);
 
         for (let i = 0; i < retrievedRowCount; i++) {
 
@@ -30,12 +30,27 @@ export const renderPage = () => {
             date.setAttribute("class", "date");
             rowL.appendChild(date);
 
-            if (localStorage["currDateEntry"]) {
-                let retrievedDateEntry = localStorage["currDateEntry"].split(",");
+            date.addEventListener("input", () => {
+                let currDateEntry = date.id;
+                let dateVal = date.value;
+
+                dateQueue.push(currDateEntry);
+                dateObject[currDateEntry] = dateVal;
+                localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
+                localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
+
+                if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                    let lastDateEntry = dateQueue.shift();
+                    localStorage.removeItem(lastDateEntry);
+                }
+            });
+
+            if (localStorage.currDateEntry) {
+                let retrievedDateEntry = localStorage.currDateEntry.split(",");
                 let dateKey = retrievedDateEntry[0];
                 let dateObjectLength = retrievedDateEntry[1];
                 let retrievedDateObject = JSON.parse(localStorage[dateKey]);
-                eleObject = retrievedDateObject;
+                dateObject = retrievedDateObject;
 
                 for (let i = 0; i < dateObjectLength; i++) {
                         date.value = retrievedDateObject[`date-${rowCount}`];
@@ -45,9 +60,9 @@ export const renderPage = () => {
                             let dateVal = date.value;
 
                             dateQueue.push(currDateEntry);
-                            eleObject[currDateEntry] = dateVal;
-                            localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
-                            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
+                            dateObject[currDateEntry] = dateVal;
+                            localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
+                            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
 
                             if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                                 let lastDateEntry = dateQueue.shift();
@@ -60,9 +75,9 @@ export const renderPage = () => {
                                    localStorage.removeItem(val)
                                }
                           });
-                }
-            }
 
+                }
+        }
                         let minus = document.createElement("button");
                         minus.setAttribute("id", `minus-${rowCount}`);
                         minus.setAttribute("class", "minus");
@@ -134,14 +149,13 @@ export const renderPage = () => {
                         rowCount++;
                         localStorage.setItem("rowCount", rowCount);
         }
-
-                                if (localStorage["checkboxObject"]) {
-                                    checkboxObject = JSON.parse(localStorage["checkboxObject"]);
+                                if (localStorage.checkboxObject) {
+                                    checkboxObject = JSON.parse(localStorage.checkboxObject);
                                     let rowCount = Object.keys(checkboxObject).length;
                                     for (let row = 0; row < rowCount; row++) {
                                         let currentMainRow = document.querySelector(`#rowM-${row}`);
                                         let currentRightRow = document.querySelector(`#rowR-${row}`);
-                                        let retrievedCheckboxObject = JSON.parse(localStorage["checkboxObject"]);
+                                        let retrievedCheckboxObject = JSON.parse(localStorage.checkboxObject);
                                         let retrievedCheckboxArrays = Object.entries(retrievedCheckboxObject);
                                         let retrievedBooleans = retrievedCheckboxArrays[row][1];
 
@@ -181,10 +195,9 @@ export const renderPage = () => {
                                                let uncheckedBoxes = uncheckedBoxesArray.length;
                                                currentRightRow.innerText = uncheckedBoxes;
                                         })
-
-
                                     }
-
                                 }
     }
+    // dateObject = JSON.parse(localStorage[`date`])
+    console.log(`rowCount: ${rowCount}, dateObject: ${dateObject}, dateQueue: ${dateQueue}, checkbox: ${checkboxObject}`)
 }

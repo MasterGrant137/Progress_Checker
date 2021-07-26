@@ -1,7 +1,14 @@
 let rowCount = 0;
-let eleObject = {};
+let dateObject = {};
 let dateQueue = [];
 let checkboxObject = {};
+
+rowCount = Number(localStorage.rowCount)
+dateObject = JSON.parse(localStorage.checkboxObject)
+console.log(dateObject)
+// console.log(JSON.parse(localStorage.currDateEntry))
+// rowCount = JSON.parse(localStorage.currDateEntry.split(",")[0].split("-")[1])
+// dateObject = JSON.parse(localStorage.checkboxObject);
 
 export const newRow = () => {
     let leftSideBar = document.querySelector("#left-sidebar");
@@ -32,9 +39,9 @@ export const newRow = () => {
             let dateVal = date.value;
 
             dateQueue.push(currDateEntry);
-            eleObject[currDateEntry] = dateVal;
-            localStorage.setItem(currDateEntry, JSON.stringify(eleObject));
-            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(eleObject).length]);
+            dateObject[currDateEntry] = dateVal;
+            localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
+            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
 
             if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                         let lastDateEntry = dateQueue.shift();
