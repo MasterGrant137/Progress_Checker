@@ -1,0 +1,70 @@
+* {
+    box-sizing: content-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: rgb(218, 206, 141);
+
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-areas:
+    "nav nav nav"
+    "lsbar main rsbar"
+    "foot foot foot";
+}
+
+nav {
+    grid-area: nav;
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    grid-area: main;
+    margin: 0px
+}
+
+footer {
+    grid-area: foot;
+    display: grid;
+    justify-content: center;
+}
+
+button {
+    border-radius: 10px;
+}
+
+button:hover {
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+}
+
+#new-row {
+    background-color: rgb(50, 233, 50);
+    font-size: 15px;
+    height: 70px;
+    width: 70px;
+}
+
+#reset-page {
+    background-color: rgb(253, 70, 70);
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 50px;
+    border-bottom: 3px solid magenta;
+}
+
+#left-sidebar {
+    grid-area: lsbar;
+}
+
+#right-sidebar {
+    grid-area: rsbar;
+}

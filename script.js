@@ -1,6 +1,6 @@
-import { renderPage } from "./renderPage.js";
-import { loadValues } from "./mainPage.js";
-import { newRow } from "./mainPage.js";
+import { renderPage } from "./scripts/renderPage.js";
+import { loadValues } from "./scripts/mainPage.js";
+import { newRow } from "./scripts/mainPage.js";
 
 window.addEventListener("DOMContentLoaded", () => {
     renderPage();

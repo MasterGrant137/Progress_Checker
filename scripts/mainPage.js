@@ -13,11 +13,6 @@ export const loadValues = () => {
 }
 
 export const newRow = () => {
-    console.log(rowCount)
-    console.log(dateObject)
-    console.log(dateQueue)
-    console.log(checkboxObject)
-
 
     let leftSideBar = document.querySelector("#left-sidebar");
     let main = document.querySelector("main");
