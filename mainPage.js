@@ -5,13 +5,20 @@ let checkboxObject = {};
 
 export const loadValues = () => {
     if (localStorage.rowCount) rowCount = Number(localStorage.rowCount);
-    if (localStorage.dateObject) dateObject = JSON.parse(localStorage.checkboxObject);
     if (localStorage.dateQueue) dateQueue = JSON.parse(localStorage.dateQueue);
+    let currDateKey = dateQueue[dateQueue.length - 1];
+    if (localStorage[currDateKey]) dateObject = JSON.parse(localStorage[currDateKey]);
     else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-    if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkbdoxObject);
+    if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkboxObject);
 }
 
 export const newRow = () => {
+    console.log(rowCount)
+    console.log(dateObject)
+    console.log(dateQueue)
+    console.log(checkboxObject)
+
+
     let leftSideBar = document.querySelector("#left-sidebar");
     let main = document.querySelector("main");
     let rightSidebar = document.querySelector("#right-sidebar");
@@ -36,18 +43,17 @@ export const newRow = () => {
         rowL.appendChild(date);
 
         date.addEventListener("input", () => {
-            let currDateEntry = date.id;
+            let currDateKey = date.id;
             let dateVal = date.value;
-
-            dateQueue.push(currDateEntry);
-            dateObject[currDateEntry] = dateVal;
+            dateQueue.push(currDateKey);
+            dateObject[currDateKey] = dateVal;
             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-            localStorage.setItem(currDateEntry, JSON.stringify(dateObject));
-            localStorage.setItem("currDateEntry", [currDateEntry, Object.keys(dateObject).length]);
+            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
+            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
             if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                        let lastDateEntry = dateQueue.shift();
-                        localStorage.removeItem(lastDateEntry);
+                let lastDateKey = dateQueue.shift();
+                localStorage.removeItem(lastDateKey);
             }
         });
 
