@@ -4,30 +4,62 @@
         background-color: rgb(218, 206, 141);
 
         display: grid;
-        grid-template-rows: 1fr 5fr 1fr;
-        grid-template-columns: repeat(3, 1fr);
+        /* grid-template-rows: 1fr 5fr 1fr; */
+        /* grid-template-columns: repeat(3, 1fr); */
 
         grid-template-areas:
-        "nav nav nav nav"
-        "lsbar lsbar main rsbar"
-        "foot foot foot foot";
+        "head head head"
+        "main main main"
+        "foot foot foot";
     }
 
-    nav {
-        grid-area: nav;
+    header {
+        grid-area: head;
         display: flex;
         justify-content: center;
     }
 
     main {
+        height: 650px;
+        border: 3px solid rgb(56, 215, 236);
         grid-area: main;
-        margin: 0px
+
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-areas:
+        "lsbar lsbar mid rsbar";
+
+        overflow: auto;
     }
 
     footer {
         grid-area: foot;
         display: grid;
         justify-content: center;
+    }
+
+    button {
+        border-radius: 10px;
+    }
+
+    button:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    }
+
+    #new-row {
+        background-color: rgb(50, 233, 50);
+        font-size: 15px;
+        height: 70px;
+        width: 70px;
+    }
+
+    #reset-page {
+        background-color: rgb(253, 70, 70);
+        font-size: 13px;
+        height: 70px;
+        width: 70px;
     }
 
     .row {
@@ -43,6 +75,11 @@
         grid-area: lsbar;
     }
 
+    #middle {
+        grid-area: mid;
+        margin: 0px;
+    }
+
     #right-sidebar {
         grid-area: rsbar;
     }
@@ -50,12 +87,22 @@
     .remove-row {
         font-size: 16px;
         border-radius: 10px;
-        margin: 16px 10px;
+        margin: 0px 5px;
         padding: 1px;
     }
 
+    .remove-row:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    }
+
+    ::-webkit-calendar-picker-indicator {
+        margin-left: -20px;
+        padding: 0;
+        background-color: rgb(217, 255, 0);
+    }
+
     .date {
-        margin-right: 10px;
+        margin-right: 5px;
         background-color: rgb(0, 59, 253);
         color: white;
         height: 75%;
@@ -63,9 +110,21 @@
         border-radius: 5px;
         transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
     }
-    
+
     .date:hover {
         background-color: rgb(104, 236, 241);
         color: black;
+    }
+
+    .minus {
+        margin-right: 5px;
+    }
+
+    .plus {
+        margin-right: 5px;
+    }
+
+    .rowM {
+        overflow: auto;
     }
 }

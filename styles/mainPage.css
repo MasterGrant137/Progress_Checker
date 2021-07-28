@@ -7,24 +7,34 @@ body {
     background-color: rgb(218, 206, 141);
 
     display: grid;
-    grid-template-rows: 1fr 5fr 1fr;
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: 1fr 5fr 1fr; */
+    /* grid-template-columns: repeat(3, 1fr); */
 
     grid-template-areas:
-    "nav nav nav"
-    "lsbar main rsbar"
+    "head head head"
+    "main main main"
     "foot foot foot";
 }
 
-nav {
-    grid-area: nav;
+header {
+    grid-area: head;
     display: flex;
     justify-content: center;
 }
 
 main {
+    height: 650px;
+    border: 3px solid rgb(56, 215, 236);
     grid-area: main;
-    margin: 0px
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-areas:
+    "lsbar mid rsbar";
+
+    overflow: auto;
 }
 
 footer {
@@ -50,6 +60,9 @@ button:hover {
 
 #reset-page {
     background-color: rgb(253, 70, 70);
+    font-size: 13px;
+    height: 70px;
+    width: 70px;
 }
 
 .row {
@@ -65,6 +78,11 @@ button:hover {
     grid-area: lsbar;
 }
 
+#middle {
+    grid-area: mid;
+    margin: 0px;
+}
+
 #right-sidebar {
     grid-area: rsbar;
 }
@@ -72,7 +90,7 @@ button:hover {
 .remove-row {
     font-size: 16px;
     border-radius: 10px;
-    margin: 16px 10px;
+    margin: 0px 10px;
     padding: 1px;
 }
 

@@ -15,7 +15,7 @@ export const loadValues = () => {
 export const newRow = () => {
 
     let leftSideBar = document.querySelector("#left-sidebar");
-    let main = document.querySelector("main");
+    let middle = document.querySelector("#middle");
     let rightSidebar = document.querySelector("#right-sidebar");
     let newRowButton = document.querySelector("#new-row");
     let resetPageButton = document.querySelector("#reset-page");
@@ -67,7 +67,7 @@ export const newRow = () => {
             let rowM = document.createElement("div");
             rowM.setAttribute("id", `rowM-${rowCount}`);
             rowM.setAttribute("class", "row rowM");
-            main.appendChild(rowM);
+            middle.appendChild(rowM);
 
             let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
             let uncheckedBoxes = 0;
@@ -81,14 +81,14 @@ export const newRow = () => {
                 rowM.appendChild(checkbox);
 
                 checkbox.addEventListener("click", () => {
-                    let mainColumnArray = Array.from(rowMDiv.children);
-                    let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                    let middleColumnArray = Array.from(rowMDiv.children);
+                    let uncheckedBoxesArray = middleColumnArray.filter(checkbox => {
                             return !checkbox.checked;
                         });
 
                     uncheckedBoxes = uncheckedBoxesArray.length;
                     rowR.innerText = uncheckedBoxes;
-                    let checkboxArray = mainColumnArray.map(checkbox => {
+                    let checkboxArray = middleColumnArray.map(checkbox => {
                         return checkbox.checked;
                     });
 
@@ -97,17 +97,17 @@ export const newRow = () => {
                     localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
                 });
 
-                    let mainColumnArray = Array.from(rowMDiv.children);
-                    localStorage.setItem("checkboxCount", mainColumnArray.length);
+                    let middleColumnArray = Array.from(rowMDiv.children);
+                    localStorage.setItem("checkboxCount", middleColumnArray.length);
 
-                    let checkboxArray = mainColumnArray.map(checkbox => {
+                    let checkboxArray = middleColumnArray.map(checkbox => {
                         return checkbox.checked;
                     });
 
                     checkboxObject[plusRow] = checkboxArray;
                     localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
-                    let uncheckedBoxesArray = mainColumnArray.filter(checkbox => {
+                    let uncheckedBoxesArray = middleColumnArray.filter(checkbox => {
                         return !checkbox.checked;
                     });
 
