@@ -117,10 +117,14 @@
     }
 
     .minus {
+        height: 15px;
+        width: 8px;
         margin-right: 5px;
     }
 
     .plus {
+        height: 15px;
+        width: 8px;
         margin-right: 5px;
     }
 

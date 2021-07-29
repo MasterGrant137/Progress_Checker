@@ -120,10 +120,14 @@ button:hover {
 }
 
 .minus {
+    height: 15px;
+    width: 8px;
     margin-right: 10px;
 }
 
 .plus {
+    height: 15px;
+    width: 8px;
     margin-right: 10px;
 }
 
