@@ -3,8 +3,6 @@
         background-color: rgb(218, 206, 141);
 
         display: grid;
-        /* grid-template-rows: 1fr 5fr 1fr; */
-        /* grid-template-columns: repeat(3, 1fr); */
 
         grid-template-areas:
         "head head head"
@@ -105,6 +103,141 @@
         background-color: rgb(0, 59, 253);
         color: white;
         height: 75%;
+        font-size: 15px;
+        border-radius: 5px;
+        transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    }
+
+    .date:hover {
+        background-color: rgb(104, 236, 241);
+        color: black;
+    }
+
+    .minus {
+        font-size: 10px;
+        height: 15px;
+        width: 5px;
+        margin-right: 3px;
+    }
+
+    .plus {
+        font-size: 10px;
+        height: 15px;
+        width: 5px;
+        margin-right: 3px;
+    }
+
+    .rowM {
+        overflow: auto;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    body {
+        background-color: rgb(218, 206, 141);
+
+        display: grid;
+
+        grid-template-areas:
+        "head head head"
+        "main main main"
+        "foot foot foot";
+    }
+
+    header {
+        grid-area: head;
+        display: flex;
+        justify-content: center;
+    }
+
+    main {
+        height: 650px;
+        border: 3px solid rgb(56, 215, 236);
+        grid-area: main;
+
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+
+        grid-template-areas:
+        "lsbar lsbar mid rsbar";
+
+        overflow: auto;
+    }
+
+    footer {
+        grid-area: foot;
+        display: grid;
+        justify-content: center;
+    }
+
+    button {
+        border-radius: 10px;
+    }
+
+    button:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    }
+
+    #new-row {
+        background-color: rgb(50, 233, 50);
+        font-size: 15px;
+        height: 70px;
+        width: 70px;
+    }
+
+    #reset-page {
+        background-color: rgb(253, 70, 70);
+        font-size: 13px;
+        height: 70px;
+        width: 70px;
+    }
+
+    .row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 50px;
+        border-bottom: 3px solid magenta;
+    }
+
+    #left-sidebar {
+        grid-area: lsbar;
+    }
+
+    #middle {
+        grid-area: mid;
+        margin: 0px;
+    }
+
+    #right-sidebar {
+        grid-area: rsbar;
+    }
+
+    .remove-row {
+        font-size: 13px;
+        border-radius: 10px;
+        margin: 0px 5px;
+        padding: 1px;
+    }
+
+    .remove-row:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    }
+
+    ::-webkit-calendar-picker-indicator {
+        margin-left: -20px;
+        padding: 0;
+        background-color: rgb(217, 255, 0);
+    }
+
+    .date {
+        margin-right: 5px;
+        background-color: rgb(0, 59, 253);
+        color: white;
+        height: 75%;
+        width: 15px;
         font-size: 15px;
         border-radius: 5px;
         transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
