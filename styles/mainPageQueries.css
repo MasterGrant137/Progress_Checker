@@ -37,37 +37,6 @@
         justify-content: center;
     }
 
-    button {
-        border-radius: 10px;
-    }
-
-    button:hover {
-        box-shadow: 0px 0px 5px rgb(0, 0, 0);
-    }
-
-    #new-row {
-        background-color: rgb(50, 233, 50);
-        font-size: 15px;
-        height: 70px;
-        width: 70px;
-    }
-
-    #reset-page {
-        background-color: rgb(253, 70, 70);
-        font-size: 13px;
-        height: 70px;
-        width: 70px;
-    }
-
-    .row {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-        height: 50px;
-        border-bottom: 3px solid magenta;
-    }
-
     #left-sidebar {
         grid-area: lsbar;
     }
@@ -171,37 +140,6 @@
         justify-content: center;
     }
 
-    button {
-        border-radius: 10px;
-    }
-
-    button:hover {
-        box-shadow: 0px 0px 5px rgb(0, 0, 0);
-    }
-
-    #new-row {
-        background-color: rgb(50, 233, 50);
-        font-size: 15px;
-        height: 70px;
-        width: 70px;
-    }
-
-    #reset-page {
-        background-color: rgb(253, 70, 70);
-        font-size: 13px;
-        height: 70px;
-        width: 70px;
-    }
-
-    .row {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-        height: 50px;
-        border-bottom: 3px solid magenta;
-    }
-
     #left-sidebar {
         grid-area: lsbar;
     }
@@ -226,12 +164,6 @@
         box-shadow: 0px 0px 5px rgb(0, 0, 0);
     }
 
-    ::-webkit-calendar-picker-indicator {
-        margin-left: -20px;
-        padding: 0;
-        background-color: rgb(217, 255, 0);
-    }
-
     .date {
         margin-right: 5px;
         background-color: rgb(0, 59, 253);
@@ -241,11 +173,6 @@
         font-size: 15px;
         border-radius: 5px;
         transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-    }
-
-    .date:hover {
-        background-color: rgb(104, 236, 241);
-        color: black;
     }
 
     .minus {
@@ -260,9 +187,5 @@
         height: 15px;
         width: 5px;
         margin-right: 3px;
-    }
-
-    .rowM {
-        overflow: auto;
     }
 }

@@ -126,6 +126,6 @@ export const newRow = () => {
     });
 
     resetPageButton.addEventListener("click", () => {
-
+         alert("Are you sure you want to reset the page?");
     });
 }
