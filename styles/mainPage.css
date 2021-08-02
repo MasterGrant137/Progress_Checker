@@ -99,7 +99,7 @@ button:hover {
 ::-webkit-calendar-picker-indicator {
     margin-left: -20px;
     padding: 0;
-    background-color: rgb(217, 255, 0);
+    background-color: #EDC7B7;
 }
 
 .date {
