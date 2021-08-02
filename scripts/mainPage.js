@@ -18,7 +18,6 @@ export const newRow = () => {
     let middle = document.querySelector("#middle");
     let rightSidebar = document.querySelector("#right-sidebar");
     let newRowButton = document.querySelector("#new-row");
-    let resetPageButton = document.querySelector("#reset-page");
 
     newRowButton.addEventListener("click", () => {
         let rowL = document.createElement("div");
@@ -125,7 +124,27 @@ export const newRow = () => {
         localStorage.setItem("rowCount", rowCount);
     });
 
+}
+
+export const resetPage = () => {
+    let resetPageButton = document.getElementById("reset-page");
+
     resetPageButton.addEventListener("click", () => {
-         alert("Are you sure you want to reset the page?");
-    });
+        let leftSideBar = document.getElementById("left-sidebar");
+        let middle = document.getElementById("middle");
+        let rightSidebar = document.getElementById("right-sidebar");
+
+        for (let i = 0; i < Number(localStorage.rowCount); i++) {
+            let rowL = document.querySelector(`#rowL-${i}`);
+            let rowM = document.querySelector(`#rowM-${i}`);
+            let rowR = document.querySelector(`#rowR-${i}`);
+
+            leftSideBar.removeChild(rowL);
+            middle.removeChild(rowM);
+            rightSidebar.removeChild(rowR);
+        }
+            if (window.confirm("Are you sure you want to reset all of this page's content?")) {
+                localStorage.clear();
+            }
+        });
 }
