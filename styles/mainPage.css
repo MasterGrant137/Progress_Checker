@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: rgb(218, 206, 141);
+    background-color: #379683;
 
     display: grid;
 
@@ -22,7 +22,7 @@ header {
 
 main {
     height: 70vh;
-    border: 3px solid rgb(56, 215, 236);
+    border: 3px solid #907163;
     grid-area: main;
 
     display: grid;
@@ -50,14 +50,14 @@ button:hover {
 }
 
 #new-row {
-    background-color: rgb(50, 233, 50);
+    background-color: #5CDB95;
     font-size: 15px;
     height: 70px;
     width: 70px;
 }
 
 #reset-page {
-    background-color: rgb(253, 70, 70);
+    background-color: #E34234;
     font-size: 13px;
     height: 70px;
     width: 70px;
@@ -69,7 +69,7 @@ button:hover {
     align-items: center;
     flex-wrap: wrap;
     height: 50px;
-    border-bottom: 3px solid magenta;
+    border-bottom: 3px solid #907163;
 }
 
 #left-sidebar {
@@ -104,7 +104,7 @@ button:hover {
 
 .date {
     margin-right: 10px;
-    background-color: rgb(0, 59, 253);
+    background-color: #379683;
     color: white;
     height: 75%;
     font-size: 15px;
@@ -113,7 +113,7 @@ button:hover {
 }
 
 .date:hover {
-    background-color: rgb(104, 236, 241);
+    background-color: rgb(97, 213, 218);
     color: black;
 }
 
