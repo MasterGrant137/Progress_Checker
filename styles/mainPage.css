@@ -21,7 +21,7 @@ header {
 }
 
 main {
-    height: 650px;
+    height: 70vh;
     border: 3px solid rgb(56, 215, 236);
     grid-area: main;
 
