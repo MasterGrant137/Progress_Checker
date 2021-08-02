@@ -134,17 +134,23 @@ export const resetPage = () => {
         let middle = document.getElementById("middle");
         let rightSidebar = document.getElementById("right-sidebar");
 
-        for (let i = 0; i < Number(localStorage.rowCount); i++) {
-            let rowL = document.querySelector(`#rowL-${i}`);
-            let rowM = document.querySelector(`#rowM-${i}`);
-            let rowR = document.querySelector(`#rowR-${i}`);
+        if (window.confirm("Are you sure you want to reset all of this page's content?")) {
+            rowCount = 0;
+            dateObject = {};
+            dateQueue = [];
+            checkboxObject = {};
 
-            leftSideBar.removeChild(rowL);
-            middle.removeChild(rowM);
-            rightSidebar.removeChild(rowR);
-        }
-            if (window.confirm("Are you sure you want to reset all of this page's content?")) {
-                localStorage.clear();
+            for (let i = 0; i < Number(localStorage.rowCount); i++) {
+                let rowL = document.querySelector(`#rowL-${i}`);
+                let rowM = document.querySelector(`#rowM-${i}`);
+                let rowR = document.querySelector(`#rowR-${i}`);
+
+                leftSideBar.removeChild(rowL);
+                middle.removeChild(rowM);
+                rightSidebar.removeChild(rowR);
             }
-        });
+
+            localStorage.clear();
+        }
+    });
 }

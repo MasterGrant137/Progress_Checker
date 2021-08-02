@@ -199,4 +199,24 @@ export const renderPage = () => {
                                     }
                                 }
     }
+        // let resetPageButton = document.getElementById("reset-page");
+
+        // resetPageButton.addEventListener("click", () => {
+        //     let leftSideBar = document.getElementById("left-sidebar");
+        //     let middle = document.getElementById("middle");
+        //     let rightSidebar = document.getElementById("right-sidebar");
+
+        //     for (let i = 0; i < Number(localStorage.rowCount); i++) {
+        //         let rowL = document.querySelector(`#rowL-${i}`);
+        //         let rowM = document.querySelector(`#rowM-${i}`);
+        //         let rowR = document.querySelector(`#rowR-${i}`);
+
+        //         leftSideBar.removeChild(rowL);
+        //         middle.removeChild(rowM);
+        //         rightSidebar.removeChild(rowR);
+        //     }
+        //         if (window.confirm("Are you sure you want to reset all of this page's content?")) {
+        //             localStorage.clear();
+        //         }
+        //     });
 }
