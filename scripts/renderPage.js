@@ -79,17 +79,7 @@ export const renderPage = () => {
 
                 }
         }
-                        let minus = document.createElement("button");
-                        minus.setAttribute("id", `minus-${rowCount}`);
-                        minus.setAttribute("class", "minus");
-                        minus.innerText = "-";
-                        rowL.appendChild(minus);
 
-                        let plus = document.createElement("button");
-                        plus.setAttribute("id", `plus-${rowCount}`);
-                        plus.setAttribute("class", "plus");
-                        plus.innerText = "+";
-                        rowL.appendChild(plus);
 
                         let rowM = document.createElement("div");
                         rowM.setAttribute("id", `rowM-${rowCount}`);
@@ -101,8 +91,43 @@ export const renderPage = () => {
                         rowR.setAttribute("class", "row rowR");
                         rightSidebar.appendChild(rowR);
 
+                        let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
                         let uncheckedBoxes = 0;
                         rowR.innerText = uncheckedBoxes;
+
+                        let minus = document.createElement("button");
+                        minus.setAttribute("id", `minus-${rowCount}`);
+                        minus.setAttribute("class", "minus");
+                        minus.innerText = "-";
+                        rowL.appendChild(minus);
+
+                        minus.addEventListener("click", () => {
+                            let minusRow = Number(minus.id.split("-")[1]);
+                            let rowM = document.getElementById(`rowM-${minusRow}`);
+                            let middleColumnArray = Array.from(rowMDiv.children);
+                            let lastCheckbox = middleColumnArray[middleColumnArray.length - 1];
+
+                            if (rowM && lastCheckbox) {
+                               rowM.removeChild(lastCheckbox);
+
+                               if (!lastCheckbox.checked) {
+                                   rowR.innerText = Number(rowR.innerText) - 1;
+                               }
+
+                               checkboxObject[minusRow].pop();
+                               localStorage.checkboxObject = JSON.stringify(checkboxObject);
+
+                            }
+                        });
+
+                        let plus = document.createElement("button");
+                        plus.setAttribute("id", `plus-${rowCount}`);
+                        plus.setAttribute("class", "plus");
+                        plus.innerText = "+";
+                        rowL.appendChild(plus);
+
+                        // checkboxObject[Number(plus.id.split("-")[1])] = [];
+                        // localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
                         plus.addEventListener("click", () => {
                             let plusRow = Number(plus.id.split("-")[1]);
@@ -130,7 +155,6 @@ export const renderPage = () => {
                             });
 
                                 let middleColumnArray = Array.from(rowM.children);
-                                localStorage.setItem("checkboxCount", middleColumnArray.length);
 
                                 let checkboxArray = middleColumnArray.map(checkbox => {
                                     return checkbox.checked;
@@ -199,24 +223,4 @@ export const renderPage = () => {
                                     }
                                 }
     }
-        // let resetPageButton = document.getElementById("reset-page");
-
-        // resetPageButton.addEventListener("click", () => {
-        //     let leftSideBar = document.getElementById("left-sidebar");
-        //     let middle = document.getElementById("middle");
-        //     let rightSidebar = document.getElementById("right-sidebar");
-
-        //     for (let i = 0; i < Number(localStorage.rowCount); i++) {
-        //         let rowL = document.querySelector(`#rowL-${i}`);
-        //         let rowM = document.querySelector(`#rowM-${i}`);
-        //         let rowR = document.querySelector(`#rowR-${i}`);
-
-        //         leftSideBar.removeChild(rowL);
-        //         middle.removeChild(rowM);
-        //         rightSidebar.removeChild(rowR);
-        //     }
-        //         if (window.confirm("Are you sure you want to reset all of this page's content?")) {
-        //             localStorage.clear();
-        //         }
-        //     });
 }

@@ -2,7 +2,6 @@ let rowCount = 0;
 let dateObject = {};
 let dateQueue = [];
 let checkboxObject = {};
-
 export const loadValues = () => {
     if (localStorage.rowCount) rowCount = Number(localStorage.rowCount);
     if (localStorage.dateQueue) dateQueue = JSON.parse(localStorage.dateQueue);
@@ -57,12 +56,6 @@ export const newRow = () => {
             minus.innerText = "-";
             rowL.appendChild(minus);
 
-            let plus = document.createElement("button");
-            plus.setAttribute("id", `plus-${rowCount}`);
-            plus.setAttribute("class", "plus");
-            plus.innerText = "+";
-            rowL.appendChild(plus);
-
             let rowM = document.createElement("div");
             rowM.setAttribute("id", `rowM-${rowCount}`);
             rowM.setAttribute("class", "row rowM");
@@ -70,6 +63,35 @@ export const newRow = () => {
 
             let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
             let uncheckedBoxes = 0;
+
+            minus.addEventListener("click", () => {
+                let minusRow = Number(minus.id.split("-")[1]);
+                let rowM = document.getElementById(`rowM-${minusRow}`);
+                let middleColumnArray = Array.from(rowMDiv.children);
+                let lastCheckbox = middleColumnArray[middleColumnArray.length - 1];
+
+                if (rowM && lastCheckbox) {
+                   rowM.removeChild(lastCheckbox);
+
+                   if (!lastCheckbox.checked) {
+                       rowR.innerText = Number(rowR.innerText) - 1;
+                   }
+
+                   checkboxObject[minusRow].pop();
+                   localStorage.checkboxObject = JSON.stringify(checkboxObject);
+
+                }
+            });
+
+            let plus = document.createElement("button");
+            plus.setAttribute("id", `plus-${rowCount}`);
+            plus.setAttribute("class", "plus");
+            plus.innerText = "+";
+            rowL.appendChild(plus);
+
+
+            checkboxObject[Number(plus.id.split("-")[1])] = [];
+            localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
             plus.addEventListener("click", () => {
                 let plusRow = Number(plus.id.split("-")[1]);
@@ -97,7 +119,6 @@ export const newRow = () => {
                 });
 
                     let middleColumnArray = Array.from(rowMDiv.children);
-                    localStorage.setItem("checkboxCount", middleColumnArray.length);
 
                     let checkboxArray = middleColumnArray.map(checkbox => {
                         return checkbox.checked;
