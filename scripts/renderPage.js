@@ -4,9 +4,9 @@ let dateQueue = [];
 let checkboxObject = {};
 
 export const renderPage = () => {
-    let leftSideBar = document.querySelector("#left-sidebar");
-    let middle = document.querySelector("#middle");
-    let rightSidebar = document.querySelector("#right-sidebar");
+    let leftSideBar = document.getElementById("#left-sidebar");
+    let middle = document.getElementById("#middle");
+    let rightSidebar = document.getElementById("#right-sidebar");
 
     if (localStorage.rowCount) {
         let allLocalStorageKeys = Object.keys(localStorage);
@@ -14,19 +14,19 @@ export const renderPage = () => {
 
         for (let i = 0; i < retrievedRowCount; i++) {
             let rowL = document.createElement("div");
-            rowL.setAttribute("id", `rowL-${rowCount}`);
-            rowL.setAttribute("class", "row rowL");
+            rowL.id = `rowL-${rowCount}`;
+            rowL.className = "row rowL";
             leftSideBar.appendChild(rowL);
 
             let removeRow = document.createElement("span");
-            removeRow.setAttribute("class", "remove-row");
+            removeRow.className = "remove-row";
             removeRow.innerText = "✂️";
             rowL.appendChild(removeRow);
 
             let date = document.createElement("input");
-            date.setAttribute("type", "date");
-            date.setAttribute("id", `date-${rowCount}`);
-            date.setAttribute("class", "date");
+            date.type = "date";
+            date.id = `date-${rowCount}`;
+            date.className = "date";
             rowL.appendChild(date);
 
             date.addEventListener("input", () => {
@@ -82,13 +82,13 @@ export const renderPage = () => {
 
 
                         let rowM = document.createElement("div");
-                        rowM.setAttribute("id", `rowM-${rowCount}`);
-                        rowM.setAttribute("class", "row rowM");
+                        rowM.id = `rowM-${rowCount}`;
+                        rowM.className = "row rowM";
                         middle.appendChild(rowM);
 
                         let rowR = document.createElement("div");
-                        rowR.setAttribute("id", `rowR-${rowCount}`);
-                        rowR.setAttribute("class", "row rowR");
+                        rowR.id = `rowR-${rowCount}`;
+                        rowR.className = "row rowR";
                         rightSidebar.appendChild(rowR);
 
                         let rowMDiv = document.querySelector(`#rowM-${rowCount}`);
@@ -96,8 +96,8 @@ export const renderPage = () => {
                         rowR.innerText = uncheckedBoxes;
 
                         let minus = document.createElement("button");
-                        minus.setAttribute("id", `minus-${rowCount}`);
-                        minus.setAttribute("class", "minus");
+                        minus.id = `minus-${rowCount}`;
+                        minus.className = "minus";
                         minus.innerText = "-";
                         rowL.appendChild(minus);
 
@@ -121,19 +121,16 @@ export const renderPage = () => {
                         });
 
                         let plus = document.createElement("button");
-                        plus.setAttribute("id", `plus-${rowCount}`);
-                        plus.setAttribute("class", "plus");
+                        plus.id = `plus-${rowCount}`;
+                        plus.className = "plus";
                         plus.innerText = "+";
                         rowL.appendChild(plus);
-
-                        // checkboxObject[Number(plus.id.split("-")[1])] = [];
-                        // localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));
 
                         plus.addEventListener("click", () => {
                             let plusRow = Number(plus.id.split("-")[1]);
                             let checkbox = document.createElement("input");
-                            checkbox.setAttribute("class", `checkboxRow-${plusRow}`);
-                            checkbox.setAttribute("type", "checkbox");
+                            checkbox.className = `checkboxRow-${plusRow}`;
+                            checkbox.type = "checkbox";
                             rowR.innerText = uncheckedBoxes;
                             rowM.appendChild(checkbox);
 
@@ -186,8 +183,8 @@ export const renderPage = () => {
 
                                         retrievedBooleans.map(boolean => {
                                            let checkbox = document.createElement("input");
-                                            checkbox.setAttribute("type", "checkbox");
-                                            checkbox.setAttribute("class", `checkboxRow-${row}`);
+                                            checkbox.type = "checkbox";
+                                            checkbox.className = `checkboxRow-${row}`;
                                             currentmiddleRow.appendChild(checkbox);
 
                                             if (boolean) {
