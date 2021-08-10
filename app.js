@@ -11,14 +11,5 @@ app.get("/", (req, res) => {
 
 app.use(express.static("public"));
 
-// app.use(express.static("images"));
-// app.use(express.static("scripts"));
-// app.use(express.static("styles"));
-// app.use("/static", express.static("public"));
-
-// app.use("/static", express.static(__dirname, "public/styles"));
-// app.use("/static", express.static(__dirname, "public/scripts"));
-// app.use("/static", express.static(__dirname, "public/images"));
-
 const port = 8081;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
