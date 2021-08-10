@@ -4,9 +4,9 @@ let dateQueue = [];
 let checkboxObject = {};
 
 export const renderPage = () => {
-    let leftSideBar = document.getElementById("#left-sidebar");
-    let middle = document.getElementById("#middle");
-    let rightSidebar = document.getElementById("#right-sidebar");
+    let leftSideBar = document.getElementById("left-sidebar");
+    let middle = document.getElementById("middle");
+    let rightSidebar = document.getElementById("right-sidebar");
 
     if (localStorage.rowCount) {
         let allLocalStorageKeys = Object.keys(localStorage);
