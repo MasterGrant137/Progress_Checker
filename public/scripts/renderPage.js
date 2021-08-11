@@ -40,8 +40,8 @@ export const renderPage = () => {
                 localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
                 if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                    let lastDateEntry = dateQueue.shift();
-                    localStorage.removeItem(lastDateEntry);
+                    let lastDateKey = dateQueue.shift();
+                    localStorage.removeItem(lastDateKey);
                 }
             });
 
@@ -61,22 +61,21 @@ export const renderPage = () => {
 
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
+
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
-                            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                                let lastDateKey = dateQueue.shift();
-                                localStorage.removeItem(lastDateKey);
-                            }
+                            // if (dateQueue.length > 2) {
+                            //     dateQueue.shift();
+                            //     localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            // }
+
+                            // if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                            //     let lastDateKey = dateQueue.shift();
+                            //     localStorage.removeItem(lastDateKey);
+                            // }
                         });
-
-                          allLocalStorageKeys.forEach(val=> {
-                               if (val.includes("date-") && val !== dateKey) {
-                                   localStorage.removeItem(val)
-                               }
-                          });
-
                 }
         }
 

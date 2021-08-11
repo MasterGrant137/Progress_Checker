@@ -9,7 +9,6 @@ export const loadValues = () => {
     if (localStorage[currDateKey]) dateObject = JSON.parse(localStorage[currDateKey]);
     else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
     if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkboxObject);
-    console.log(checkboxObject);
 }
 
 export const newRow = () => {
@@ -18,6 +17,8 @@ export const newRow = () => {
     let middle = document.getElementById("middle");
     let rightSidebar = document.getElementById("right-sidebar");
     let newRowButton = document.getElementById("new-row");
+    let allLocalStorageKeys = Object.keys(localStorage);
+
 
     newRowButton.addEventListener("click", () => {
         let rowL = document.createElement("div");
@@ -39,16 +40,23 @@ export const newRow = () => {
         date.addEventListener("input", () => {
             let currDateKey = date.id;
             let dateVal = date.value;
+
             dateQueue.push(currDateKey);
             dateObject[currDateKey] = dateVal;
             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
+            if (dateQueue.length > 2) {
+                dateQueue.shift();
+                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+            }
+
             if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                 let lastDateKey = dateQueue.shift();
                 localStorage.removeItem(lastDateKey);
             }
+
         });
 
             let minus = document.createElement("button");
