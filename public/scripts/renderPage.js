@@ -9,7 +9,6 @@ export const renderPage = () => {
     let rightSidebar = document.getElementById("right-sidebar");
 
     if (localStorage.rowCount) {
-        let allLocalStorageKeys = Object.keys(localStorage);
         let retrievedRowCount = Number(localStorage.rowCount);
 
         for (let i = 0; i < retrievedRowCount; i++) {
@@ -68,15 +67,32 @@ export const renderPage = () => {
                                 localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             }
 
-                            if (dateQueue.length < 3) {
+                            // if (dateQueue.length < 3) {
+                            //     console.log("second cond");
+                            //     localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            // }
+
+                            if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                                 console.log("second cond");
+                                dateQueue.shift();
                                 localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+
+                                let allLocalStorageKeys = Object.keys(localStorage);
+
+                                let retrievedDateEntry = localStorage.currDateEntry.split(",");
+                                let dateKey = retrievedDateEntry[0];
+
+                                allLocalStorageKeys.forEach(val=> {
+                                    if (val.includes("date-") && val !== dateKey) {
+                                        localStorage.removeItem(val)
+                                    }
+                                });
                             }
 
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
-                            if (dateQueue.length === 2) {
+                            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                                 console.log("third cond");
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
