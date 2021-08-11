@@ -9,6 +9,7 @@ export const loadValues = () => {
     if (localStorage[currDateKey]) dateObject = JSON.parse(localStorage[currDateKey]);
     else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
     if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkboxObject);
+    console.log(checkboxObject);
 }
 
 export const newRow = () => {
@@ -88,7 +89,6 @@ export const newRow = () => {
             plus.className = "plus";
             plus.innerText = "+";
             rowL.appendChild(plus);
-
 
             checkboxObject[Number(plus.id.split("-")[1])] = [];
             localStorage.setItem("checkboxObject", JSON.stringify(checkboxObject));

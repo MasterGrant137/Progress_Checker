@@ -80,7 +80,6 @@ export const renderPage = () => {
                 }
         }
 
-
                         let rowM = document.createElement("div");
                         rowM.id = `rowM-${rowCount}`;
                         rowM.className = "row rowM";
