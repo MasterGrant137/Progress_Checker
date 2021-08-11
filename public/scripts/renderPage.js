@@ -64,13 +64,8 @@ export const renderPage = () => {
                             if (dateQueue.length === 3) {
                                 console.log("first cond");
                                 dateQueue.shift();
-                                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             }
-
-                            // if (dateQueue.length < 3) {
-                            //     console.log("second cond");
-                            //     localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-                            // }
 
                             if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                                 console.log("second cond");
@@ -82,6 +77,7 @@ export const renderPage = () => {
                                 let retrievedDateEntry = localStorage.currDateEntry.split(",");
                                 let dateKey = retrievedDateEntry[0];
 
+
                                 allLocalStorageKeys.forEach(val=> {
                                     if (val.includes("date-") && val !== dateKey) {
                                         localStorage.removeItem(val)
@@ -89,6 +85,7 @@ export const renderPage = () => {
                                 });
                             }
 
+                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 

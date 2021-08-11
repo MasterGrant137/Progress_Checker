@@ -9,6 +9,8 @@ export const loadValues = () => {
     if (localStorage[currDateKey]) dateObject = JSON.parse(localStorage[currDateKey]);
     else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
     if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkboxObject);
+    console.log(dateQueue);
+    console.log(checkboxObject);
 }
 
 export const newRow = () => {
@@ -46,18 +48,13 @@ export const newRow = () => {
             if (dateQueue.length === 3) {
                 console.log("first cond");
                 dateQueue.shift();
-                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
             }
-
-            // if (dateQueue.length < 3) {
-            //     console.log("second cond");
-            //     localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-            // }
 
             if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                 console.log("second cond");
                 dateQueue.shift();
-                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
 
                 let allLocalStorageKeys = Object.keys(localStorage);
 
@@ -71,6 +68,7 @@ export const newRow = () => {
                 });
             }
 
+            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
