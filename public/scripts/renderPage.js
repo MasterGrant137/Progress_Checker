@@ -62,19 +62,25 @@ export const renderPage = () => {
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
 
-                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            if (dateQueue.length === 3) {
+                                console.log("first cond");
+                                dateQueue.shift();
+                                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            }
+
+                            if (dateQueue.length < 3) {
+                                console.log("second cond");
+                                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            }
+
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
 
-                            // if (dateQueue.length > 2) {
-                            //     dateQueue.shift();
-                            //     localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-                            // }
-
-                            // if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                            //     let lastDateKey = dateQueue.shift();
-                            //     localStorage.removeItem(lastDateKey);
-                            // }
+                            if (dateQueue.length === 2) {
+                                console.log("third cond");
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
+                            }
                         });
                 }
         }
