@@ -41,14 +41,8 @@ export const renderPage = () => {
                         date.addEventListener("input", () => {
                             let currDateKey = date.id;
                             let dateVal = date.value;
-                            // console.log(dateObject);
-                            // if (localStorage[currDateKey]) {
-                            //     console.log("I work");
-                            //     localStorage.removeItem(currDateKey)
-                            // };
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
-
 
                             if (dateQueue.length === 3) {
                                 console.log("first cond", `dateQueue: ${dateQueue}`);
@@ -65,9 +59,9 @@ export const renderPage = () => {
                                 console.log("3rd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
-                                // localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             }
 
+                            console.log(currDateKey);
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
@@ -112,6 +106,7 @@ export const renderPage = () => {
                                 localStorage.removeItem(lastDateKey);
                             }
 
+                            console.log(currDateKey);
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
