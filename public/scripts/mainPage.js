@@ -2,15 +2,14 @@ let rowCount = 0;
 let dateObject = {};
 let dateQueue = [];
 let checkboxObject = {};
+
 export const loadValues = () => {
     if (localStorage.rowCount) rowCount = Number(localStorage.rowCount);
     if (localStorage.dateQueue) dateQueue = JSON.parse(localStorage.dateQueue);
     let currDateKey = dateQueue[dateQueue.length - 1];
     if (localStorage[currDateKey]) dateObject = JSON.parse(localStorage[currDateKey]);
-    else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+    // else if (!localStorage.dateQueue) localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
     if (localStorage.checkboxObject) checkboxObject = JSON.parse(localStorage.checkboxObject);
-    console.log(dateQueue);
-    console.log(checkboxObject);
 }
 
 export const newRow = () => {
@@ -38,50 +37,48 @@ export const newRow = () => {
         date.className = "date";
         rowL.appendChild(date);
 
+        //* let allLocalStorageKeys = Object.keys(localStorage);
+        // let retrievedDateEntry = localStorage.currDateEntry.split(",");
+        // let dateKey = retrievedDateEntry[0];
+
+        //* allLocalStorageKeys.forEach(val=> {
+        //     if (val.includes("date-") && val !== dateKey) {
+        //         localStorage.removeItem(val)
+        //     }
+        // });
+
         date.addEventListener("input", () => {
             let currDateKey = date.id;
             let dateVal = date.value;
-
+            if (localStorage[currDateKey]) {
+                console.log("I work");
+                localStorage.removeItem(currDateKey)
+            };
             dateQueue.push(currDateKey);
             dateObject[currDateKey] = dateVal;
 
+
             if (dateQueue.length === 3) {
-                console.log("first cond");
-                dateQueue.shift();
-                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-            }
-
-            if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
-                console.log("second cond");
-                dateQueue.shift();
-                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-
-                let allLocalStorageKeys = Object.keys(localStorage);
-
-                let retrievedDateEntry = localStorage.currDateEntry.split(",");
-                let dateKey = retrievedDateEntry[0];
-
-                allLocalStorageKeys.forEach(val=> {
-                    if (val.includes("date-") && val !== dateKey) {
-                        localStorage.removeItem(val)
-                    }
-                });
-            }
-
-            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
-            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
-
-
-            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                console.log("third cond");
+                console.log("first cond", `dateQueue: ${dateQueue}`);
+                console.log("1st cond date object: ", dateObject);
+                let lastDateKey = dateQueue.shift();
+                localStorage.removeItem(lastDateKey);
+            } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                console.log("second cond", `dateQueue: ${dateQueue}`);
+                console.log("2nd cond date object: ", dateObject);
+                // let lastDateKey = dateQueue.shift();
+                // localStorage.removeItem(lastDateKey);
+            } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
+                console.log("third cond", `dateQueue: ${dateQueue}`);
+                console.log("3rd cond date object: ", dateObject);
                 let lastDateKey = dateQueue.shift();
                 localStorage.removeItem(lastDateKey);
             }
 
+            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
+            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
         });
-
-//*&& dateQueue[0] !== dateQueue[1]
 
             let minus = document.createElement("button");
             minus.id = `minus-${rowCount}`;

@@ -28,22 +28,6 @@ export const renderPage = () => {
             date.className = "date";
             rowL.appendChild(date);
 
-            date.addEventListener("input", () => {
-                let currDateKey = date.id;
-                let dateVal = date.value;
-
-                dateQueue.push(currDateKey);
-                dateObject[currDateKey] = dateVal;
-                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-                localStorage.setItem(currDateKey, JSON.stringify(dateObject));
-                localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
-
-                if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                    let lastDateKey = dateQueue.shift();
-                    localStorage.removeItem(lastDateKey);
-                }
-            });
-
             if (localStorage.currDateEntry) {
                 let retrievedDateEntry = localStorage.currDateEntry.split(",");
                 let dateKey = retrievedDateEntry[0];
@@ -57,46 +41,79 @@ export const renderPage = () => {
                         date.addEventListener("input", () => {
                             let currDateKey = date.id;
                             let dateVal = date.value;
+                            // console.log(dateObject);
+                            if (localStorage[currDateKey]) localStorage.removeItem(currDateKey);
+                            dateQueue.push(currDateKey);
+                            dateObject[currDateKey] = dateVal;
 
+
+                            if (dateQueue.length === 3) {
+                                console.log("first cond", `dateQueue: ${dateQueue}`);
+                                console.log("1st cond date object: ", dateObject);
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
+                            } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                                console.log("second cond", `dateQueue: ${dateQueue}`);
+                                console.log("2nd cond date object: ", dateObject);
+                                // let lastDateKey = dateQueue.shift();
+                                // localStorage.removeItem(lastDateKey);
+                            } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
+                                console.log("third cond", `dateQueue: ${dateQueue}`);
+                                console.log("3rd cond date object: ", dateObject);
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
+                                localStorage.setItem(currDateKey, JSON.stringify(dateObject));
+                            }
+
+                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
+                            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
+                        });
+
+                        let allLocalStorageKeys = Object.keys(localStorage);
+                        allLocalStorageKeys.forEach(val=> {
+                            if (val.includes("date-") && val !== dateKey) {
+                                console.log(val);
+                                localStorage.removeItem(val)
+                            }
+                        });
+                    }
+                } else if (!localStorage.currDateEntry) {
+                    // date.value = retrievedDateObject[`date-${rowCount}`];
+
+                        date.addEventListener("input", () => {
+                            let currDateKey = date.id;
+                            let dateVal = date.value;
+                            // console.log(dateObject);
+                            if (localStorage[currDateKey]) {
+                                console.log("I work");
+                                localStorage.removeItem(currDateKey)
+                            };
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
 
                             if (dateQueue.length === 3) {
-                                console.log("first cond");
-                                dateQueue.shift();
-                                // localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-                            }
-
-                            if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
-                                console.log("second cond");
-                                dateQueue.shift();
-                                localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-
-                                let allLocalStorageKeys = Object.keys(localStorage);
-
-                                let retrievedDateEntry = localStorage.currDateEntry.split(",");
-                                let dateKey = retrievedDateEntry[0];
-
-
-                                allLocalStorageKeys.forEach(val=> {
-                                    if (val.includes("date-") && val !== dateKey) {
-                                        localStorage.removeItem(val)
-                                    }
-                                });
-                            }
-
-                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
-                            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
-                            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
-
-                            if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                                console.log("third cond");
+                                console.log("first cond", `dateQueue: ${dateQueue}`);
+                                console.log("1st cond date object: ", dateObject);
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
+                            } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
+                                console.log("second cond", `dateQueue: ${dateQueue}`);
+                                console.log("2nd cond date object: ", dateObject);
+                                // let lastDateKey = dateQueue.shift();
+                                // localStorage.removeItem(lastDateKey);
+                            } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
+                                console.log("third cond", `dateQueue: ${dateQueue}`);
+                                console.log("3rd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             }
+
+                            localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
+                            localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
+                            localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                         });
                 }
-        }
 
                         let rowM = document.createElement("div");
                         rowM.id = `rowM-${rowCount}`;
