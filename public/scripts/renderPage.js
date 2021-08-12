@@ -17,11 +17,6 @@ export const renderPage = () => {
             rowL.className = "row rowL";
             leftSideBar.appendChild(rowL);
 
-            let removeRow = document.createElement("span");
-            removeRow.className = "remove-row";
-            removeRow.innerText = "✂️";
-            rowL.appendChild(removeRow);
-
             let date = document.createElement("input");
             date.type = "date";
             date.id = `date-${rowCount}`;
@@ -59,6 +54,7 @@ export const renderPage = () => {
                                 console.log("3rd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
+                                location.reload();
                             }
 
                             console.log(currDateKey);
@@ -76,16 +72,9 @@ export const renderPage = () => {
                         });
                     }
                 } else if (!localStorage.currDateEntry) {
-                    // date.value = retrievedDateObject[`date-${rowCount}`];
-
                         date.addEventListener("input", () => {
                             let currDateKey = date.id;
                             let dateVal = date.value;
-                            // console.log(dateObject);
-                            // if (localStorage[currDateKey]) {
-                            //     console.log("I work");
-                            //     localStorage.removeItem(currDateKey)
-                            // };
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
 
@@ -170,7 +159,7 @@ export const renderPage = () => {
                                 let middleColumnArray = Array.from(rowM.children);
                                 let uncheckedBoxesArray = middleColumnArray.filter(checkbox => {
                                         return !checkbox.checked;
-                                    });
+                                });
 
                                 uncheckedBoxes = uncheckedBoxesArray.length;
                                 rowR.innerText = uncheckedBoxes;
@@ -199,6 +188,30 @@ export const renderPage = () => {
                                 uncheckedBoxes = uncheckedBoxesArray.length;
                                 rowR.innerText = uncheckedBoxes;
                         });
+
+                        let copyRowInfo = document.createElement("span");
+                        copyRowInfo.id = `copy-row-info-${rowCount}`;
+                        copyRowInfo.className = "copy-row-info";
+                        copyRowInfo.innerText = "📎";
+                        rowL.appendChild(copyRowInfo);
+
+                        copyRowInfo.addEventListener("click", () => {
+                            let copiedTextRow = Number(copyRowInfo.id.split("-")[3]);
+                            let copiedText = `date: ${dateObject[`date-${copiedTextRow}`]}, finished: ${checkboxObject[copiedTextRow].filter(cbox => cbox).length}, left: ${checkboxObject[copiedTextRow].filter(cbox => !cbox).length}`;
+
+                            let tempTextbox = document.createElement("input");
+                            tempTextbox.type = "text";
+                            tempTextbox.value = copiedText;
+                            rowL.appendChild(tempTextbox);
+
+                            tempTextbox.select();
+                            // tempTextbox.selectionRange(0, 99999);
+                            document.execCommand("copy");
+
+                            rowL.removeChild(tempTextbox);
+                            alert("Sucessfully copied to clipboard!");
+                        });
+
 
                         rowCount++;
                         localStorage.setItem("rowCount", rowCount);

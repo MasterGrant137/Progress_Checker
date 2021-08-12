@@ -86,15 +86,15 @@ button:hover {
     grid-area: rsbar;
 }
 
-.remove-row {
-    cursor: pointer;
+.copy-row-info {
+    cursor: copy;
     font-size: 16px;
     border-radius: 10px;
     margin: 0px 10px;
     padding: 1px;
 }
 
-.remove-row:hover {
+.copy-row-info:hover {
     box-shadow: 0px 0px 5px rgb(0, 0, 0);
 }
 
