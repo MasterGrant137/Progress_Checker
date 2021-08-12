@@ -50,10 +50,10 @@ export const newRow = () => {
         date.addEventListener("input", () => {
             let currDateKey = date.id;
             let dateVal = date.value;
-            if (localStorage[currDateKey]) {
-                console.log("I work");
-                localStorage.removeItem(currDateKey)
-            };
+            // if (localStorage[currDateKey]) {
+            //     console.log("I work");
+            //     localStorage.removeItem(currDateKey)
+            // };
             dateQueue.push(currDateKey);
             dateObject[currDateKey] = dateVal;
 
@@ -66,8 +66,8 @@ export const newRow = () => {
             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                 console.log("second cond", `dateQueue: ${dateQueue}`);
                 console.log("2nd cond date object: ", dateObject);
-                // let lastDateKey = dateQueue.shift();
-                // localStorage.removeItem(lastDateKey);
+                let lastDateKey = dateQueue.shift();
+                localStorage.removeItem(lastDateKey);
             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                 console.log("third cond", `dateQueue: ${dateQueue}`);
                 console.log("3rd cond date object: ", dateObject);

@@ -42,7 +42,10 @@ export const renderPage = () => {
                             let currDateKey = date.id;
                             let dateVal = date.value;
                             // console.log(dateObject);
-                            if (localStorage[currDateKey]) localStorage.removeItem(currDateKey);
+                            // if (localStorage[currDateKey]) {
+                            //     console.log("I work");
+                            //     localStorage.removeItem(currDateKey)
+                            // };
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
 
@@ -55,14 +58,14 @@ export const renderPage = () => {
                             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                                 console.log("second cond", `dateQueue: ${dateQueue}`);
                                 console.log("2nd cond date object: ", dateObject);
-                                // let lastDateKey = dateQueue.shift();
-                                // localStorage.removeItem(lastDateKey);
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                                 console.log("third cond", `dateQueue: ${dateQueue}`);
                                 console.log("3rd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
-                                localStorage.setItem(currDateKey, JSON.stringify(dateObject));
+                                // localStorage.setItem(currDateKey, JSON.stringify(dateObject));
                             }
 
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
@@ -85,10 +88,10 @@ export const renderPage = () => {
                             let currDateKey = date.id;
                             let dateVal = date.value;
                             // console.log(dateObject);
-                            if (localStorage[currDateKey]) {
-                                console.log("I work");
-                                localStorage.removeItem(currDateKey)
-                            };
+                            // if (localStorage[currDateKey]) {
+                            //     console.log("I work");
+                            //     localStorage.removeItem(currDateKey)
+                            // };
                             dateQueue.push(currDateKey);
                             dateObject[currDateKey] = dateVal;
 
@@ -100,8 +103,8 @@ export const renderPage = () => {
                             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                                 console.log("second cond", `dateQueue: ${dateQueue}`);
                                 console.log("2nd cond date object: ", dateObject);
-                                // let lastDateKey = dateQueue.shift();
-                                // localStorage.removeItem(lastDateKey);
+                                let lastDateKey = dateQueue.shift();
+                                localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                                 console.log("third cond", `dateQueue: ${dateQueue}`);
                                 console.log("3rd cond date object: ", dateObject);
