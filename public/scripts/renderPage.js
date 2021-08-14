@@ -40,26 +40,25 @@ export const renderPage = () => {
                             dateObject[currDateKey] = dateVal;
 
                             if (dateQueue.length === 3) {
-                                console.log("first cond", `dateQueue: ${dateQueue}`);
-                                console.log("1st cond date object: ", dateObject);
+                                //? console.log("first cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("1st cond date object: ", dateObject);
                                 location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                                console.log("second cond", `dateQueue: ${dateQueue}`);
-                                console.log("2nd cond date object: ", dateObject);
+                                //? console.log("second cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("2nd cond date object: ", dateObject);
                                 location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
-                                console.log("third cond", `dateQueue: ${dateQueue}`);
-                                console.log("3rd cond date object: ", dateObject);
+                                //? console.log("third cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("3rd cond date object: ", dateObject);
                                 location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             }
 
-                            console.log(currDateKey);
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
@@ -68,7 +67,6 @@ export const renderPage = () => {
                         let allLocalStorageKeys = Object.keys(localStorage);
                         allLocalStorageKeys.forEach(val=> {
                             if (val.includes("date-") && val !== dateKey) {
-                                console.log(val);
                                 localStorage.removeItem(val)
                             }
                         });
@@ -81,23 +79,22 @@ export const renderPage = () => {
                             dateObject[currDateKey] = dateVal;
 
                             if (dateQueue.length === 3) {
-                                console.log("first cond", `dateQueue: ${dateQueue}`);
-                                console.log("1st cond date object: ", dateObject);
+                                //? console.log("first cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("1st cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
-                                console.log("second cond", `dateQueue: ${dateQueue}`);
-                                console.log("2nd cond date object: ", dateObject);
+                                //? console.log("second cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("2nd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
-                                console.log("third cond", `dateQueue: ${dateQueue}`);
-                                console.log("3rd cond date object: ", dateObject);
+                                //? console.log("third cond", `dateQueue: ${dateQueue}`);
+                                //? console.log("3rd cond date object: ", dateObject);
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             }
 
-                            console.log(currDateKey);
                             localStorage.setItem("dateQueue", JSON.stringify(dateQueue));
                             localStorage.setItem("currDateEntry", [currDateKey, Object.keys(dateObject).length]);
                             localStorage.setItem(currDateKey, JSON.stringify(dateObject));
