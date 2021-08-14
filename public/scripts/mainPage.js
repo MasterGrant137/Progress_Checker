@@ -25,29 +25,6 @@ export const newRow = () => {
         rowL.className = "row rowL";
         leftSideBar.appendChild(rowL);
 
-        let copyRowInfo = document.createElement("span");
-        copyRowInfo.id = `copy-row-info-${rowCount}`;
-        copyRowInfo.className = "copy-row-info";
-        copyRowInfo.innerText = "📎";
-        rowL.appendChild(copyRowInfo);
-
-        copyRowInfo.addEventListener("click", () => {
-            let copiedTextRow = Number(copyRowInfo.id.split("-")[3]);
-            let copiedText = `date: ${dateObject[`date-${copiedTextRow}`]}, finished: ${checkboxObject[copiedTextRow].filter(cbox => cbox).length}, left: ${checkboxObject[copiedTextRow].filter(cbox => !cbox).length}`;
-
-            let tempTextbox = document.createElement("input");
-            tempTextbox.type = "text";
-            tempTextbox.value = copiedText;
-            rowL.appendChild(tempTextbox);
-
-            tempTextbox.select();
-            // tempTextbox.selectionRange(0, 99999);
-            document.execCommand("copy");
-
-            rowL.removeChild(tempTextbox);
-            alert("Sucessfully copied to clipboard!");
-        });
-
         let date = document.createElement("input");
         date.type = "date";
         date.id = `date-${rowCount}`;
@@ -64,19 +41,21 @@ export const newRow = () => {
             if (dateQueue.length === 3) {
                 console.log("first cond", `dateQueue: ${dateQueue}`);
                 console.log("1st cond date object: ", dateObject);
+                location.reload();
                 let lastDateKey = dateQueue.shift();
                 localStorage.removeItem(lastDateKey);
             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                 console.log("second cond", `dateQueue: ${dateQueue}`);
                 console.log("2nd cond date object: ", dateObject);
+                location.reload();
                 let lastDateKey = dateQueue.shift();
                 localStorage.removeItem(lastDateKey);
             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                 console.log("third cond", `dateQueue: ${dateQueue}`);
                 console.log("3rd cond date object: ", dateObject);
+                location.reload();
                 let lastDateKey = dateQueue.shift();
                 localStorage.removeItem(lastDateKey);
-                location.reload();
             }
 
             console.log(currDateKey);
@@ -167,6 +146,28 @@ export const newRow = () => {
 
                     uncheckedBoxes = uncheckedBoxesArray.length;
                     rowR.innerText = uncheckedBoxes;
+            });
+
+            let copyRowInfo = document.createElement("span");
+            copyRowInfo.id = `copy-row-info-${rowCount}`;
+            copyRowInfo.className = "copy-row-info";
+            copyRowInfo.innerText = "📎";
+            rowL.appendChild(copyRowInfo);
+
+            copyRowInfo.addEventListener("click", () => {
+                let copiedTextRow = Number(copyRowInfo.id.split("-")[3]);
+                let copiedText = `date: ${dateObject[`date-${copiedTextRow}`]}, finished: ${checkboxObject[copiedTextRow].filter(cbox => cbox).length}, left: ${checkboxObject[copiedTextRow].filter(cbox => !cbox).length}`;
+
+                let tempTextbox = document.createElement("input");
+                tempTextbox.type = "text";
+                tempTextbox.value = copiedText;
+                rowL.appendChild(tempTextbox);
+
+                tempTextbox.select();
+                document.execCommand("copy");
+
+                rowL.removeChild(tempTextbox);
+                alert("Sucessfully copied to clipboard!");
             });
 
         let rowR = document.createElement("div");

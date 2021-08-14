@@ -42,19 +42,21 @@ export const renderPage = () => {
                             if (dateQueue.length === 3) {
                                 console.log("first cond", `dateQueue: ${dateQueue}`);
                                 console.log("1st cond date object: ", dateObject);
+                                location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] !== dateQueue[1]) {
                                 console.log("second cond", `dateQueue: ${dateQueue}`);
                                 console.log("2nd cond date object: ", dateObject);
+                                location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
                             } else if (dateQueue.length === 2 && dateQueue[0] === dateQueue[1]) {
                                 console.log("third cond", `dateQueue: ${dateQueue}`);
                                 console.log("3rd cond date object: ", dateObject);
+                                location.reload();
                                 let lastDateKey = dateQueue.shift();
                                 localStorage.removeItem(lastDateKey);
-                                location.reload();
                             }
 
                             console.log(currDateKey);
@@ -205,7 +207,6 @@ export const renderPage = () => {
                             rowL.appendChild(tempTextbox);
 
                             tempTextbox.select();
-                            // tempTextbox.selectionRange(0, 99999);
                             document.execCommand("copy");
 
                             rowL.removeChild(tempTextbox);

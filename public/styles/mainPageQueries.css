@@ -48,17 +48,6 @@
         grid-area: rsbar;
     }
 
-    .copy-row-info {
-        font-size: 13px;
-        border-radius: 10px;
-        margin: 0px 5px;
-        padding: 1px;
-    }
-
-    .copy-row-info:hover {
-        box-shadow: 0px 0px 5px rgb(0, 0, 0);
-    }
-
     ::-webkit-calendar-picker-indicator {
         margin-left: -20px;
         padding: 0;
@@ -83,6 +72,17 @@
         height: 15px;
         width: 5px;
         margin-right: 3px;
+    }
+
+    .copy-row-info {
+        font-size: 13px;
+        border-radius: 10px;
+        margin-right: 3px;
+        padding: 1px;
+    }
+
+    .copy-row-info:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
     }
 
     .rowM {
