@@ -162,7 +162,7 @@ export const newRow = () => {
                 document.execCommand("copy");
 
                 rowL.removeChild(tempTextbox);
-                alert("Sucessfully copied to clipboard!");
+                alert("Successfully copied to clipboard!");
             });
 
         let rowR = document.createElement("div");

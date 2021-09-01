@@ -207,7 +207,7 @@ export const renderPage = () => {
                             document.execCommand("copy");
 
                             rowL.removeChild(tempTextbox);
-                            alert("Sucessfully copied to clipboard!");
+                            alert("Successfully copied to clipboard!");
                         });
 
 
